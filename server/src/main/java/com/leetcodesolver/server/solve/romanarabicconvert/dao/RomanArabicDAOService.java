@@ -2,7 +2,7 @@ package com.leetcodesolver.server.solve.romanarabicconvert.dao;
 
 import com.leetcodesolver.server.solve.romanarabicconvert.entity.RomanArabicEntity;
 import com.leetcodesolver.server.solve.romanarabicconvert.response.RomanArabicResponse;
-import com.leetcodesolver.server.solve.romanarabicconvert.response.RomanArabicResponse.RomanIntData;
+import com.leetcodesolver.server.solve.romanarabicconvert.response.RomanArabicResponse.RomanArabicData;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -26,7 +26,7 @@ public class RomanArabicDAOService {
 
         return cachedConversion
                 .map(entity -> new RomanArabicResponse(
-                        new RomanIntData(
+                        new RomanArabicData(
                                 entity.getRomanNumeral(),
                                 entity.getNumber())))
                 .orElse(null);
@@ -38,7 +38,7 @@ public class RomanArabicDAOService {
 
         return cachedConversion
                 .map(entity -> new RomanArabicResponse(
-                        new RomanIntData(
+                        new RomanArabicData(
                                 entity.getRomanNumeral(),
                                 entity.getNumber())))
                 .orElse(null);

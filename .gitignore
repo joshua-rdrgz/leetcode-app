@@ -33,5 +33,6 @@ build/
 .vscode/
 
 ### CUSTOM ###
+.git/
 .DS_Store
 .env

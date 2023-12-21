@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SolveController {
 
-    private RomanArabicService romanIntService;
+    private RomanArabicService romanArabicService;
 
-    public SolveController(RomanArabicService riService) {
-        romanIntService = riService;
+    public SolveController(RomanArabicService romanArabicService) {
+        this.romanArabicService = romanArabicService;
     }
 
     @GetMapping("/roman-arabic-convert/{romanOrArabic}")
     @EndpointSummary(name = "Roman-Arabic Conversion", description = "Convert a valid Roman Numeral to an Arabic Numeral, and vice versa")
     public RomanArabicResponse converter(@PathVariable String romanOrArabic) {
-        return romanIntService.convert(romanOrArabic);
+        return romanArabicService.convert(romanOrArabic);
     }
 
 }

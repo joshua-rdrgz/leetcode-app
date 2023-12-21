@@ -4,18 +4,19 @@ import com.leetcodesolver.server.responses.SuccessResponse;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
-public class RomanArabicResponse extends SuccessResponse<RomanArabicResponse.RomanIntData> {
+public class RomanArabicResponse
+        extends SuccessResponse<RomanArabicResponse.RomanArabicData> {
 
-    public RomanArabicResponse(RomanIntData data) {
+    public RomanArabicResponse(RomanArabicData data) {
         super(data, HttpStatus.OK.value());
     }
 
     @Data
-    public static class RomanIntData {
+    public static class RomanArabicData {
         private String romanNumeral;
         private int number;
 
-        public RomanIntData(String rn, int num) {
+        public RomanArabicData(String rn, int num) {
             romanNumeral = rn;
             number = num;
         }
