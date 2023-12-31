@@ -1,0 +1,20 @@
+.card {
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #888;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+
+  &__name {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  &__description {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}

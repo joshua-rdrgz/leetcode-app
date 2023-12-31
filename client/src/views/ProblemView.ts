@@ -13,6 +13,9 @@ export class ProblemView {
   renderGrid(problems: ProblemData[], cardNavigatorFn: CardNavigatorFn) {
     this.container.innerHTML = '';
 
+    const cardContainer = document.createElement('section');
+    cardContainer.classList.add('grid');
+
     problems.forEach((problem) => {
       // 1. Create Card
       const card = document.createElement('div');
@@ -25,9 +28,11 @@ export class ProblemView {
       // 2. Add Card Event Listener
       ProblemView.#addCardClickHandler(card, cardNavigatorFn);
 
-      // 3. Add to DOM
-      this.container.appendChild(card);
+      // 3. Add to container
+      cardContainer.appendChild(card);
     });
+
+    this.container.appendChild(cardContainer);
   }
 
   static #addCardClickHandler(
