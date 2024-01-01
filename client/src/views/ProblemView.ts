@@ -17,36 +17,36 @@ export class ProblemView {
     cardContainer.classList.add('grid');
 
     problems.forEach((problem) => {
-      // 1. Create Card
       const card = document.createElement('div');
       card.classList.add('card');
       card.innerHTML = `
                 <h2 class="card__name">${problem.name}</h2>
                 <p class="card__description">${problem.description}</p>
             `;
-
-      // 2. Add Card Event Listener
-      ProblemView.#addCardClickHandler(card, cardNavigatorFn);
-
-      // 3. Add to container
       cardContainer.appendChild(card);
     });
+
+    ProblemView.#addCardClickHandler(cardContainer, cardNavigatorFn);
 
     this.container.appendChild(cardContainer);
   }
 
   static #addCardClickHandler(
-    card: HTMLDivElement,
+    cardContainer: HTMLElement,
     cardNavigatorFn: CardNavigatorFn
   ) {
-    card.addEventListener('click', (e) => {
-      const target = e.target as HTMLDivElement;
-      const cardName = target
-        .querySelector('h2')!
-        .textContent!.trim()!
-        .toLowerCase();
+    cardContainer.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const card = target.closest('.card');
+      if (card) {
+        const cardName = card
+          .querySelector('h2')
+          ?.textContent?.trim()
+          ?.toLowerCase();
 
-      if (cardName) {
+        if (!cardName)
+          throw new Error('Card must have a name to navigate to it.');
+
         cardNavigatorFn(cardName);
       }
     });
