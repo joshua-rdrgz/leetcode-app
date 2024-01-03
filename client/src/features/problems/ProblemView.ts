@@ -1,16 +1,17 @@
-import { ProblemData } from '@/models/problems/ProblemData';
-import { type ProblemController } from '@/controllers/ProblemController';
+import { type NavigateToProblemFn } from '@/features/navigation/NavigationController';
+import { ProblemData } from './ProblemData';
 
-type CardNavigatorFn = ReturnType<ProblemController['navigateToPage']>;
-
-export class ProblemView {
+class ProblemView {
   container: HTMLElement;
 
   constructor() {
     this.container = document.getElementById('problems')!;
   }
 
-  renderGrid(problems: ProblemData[], cardNavigatorFn: CardNavigatorFn) {
+  renderGrid(
+    problems: ProblemData[],
+    navigateToProblemFn: NavigateToProblemFn
+  ) {
     this.container.innerHTML = '';
 
     const cardContainer = document.createElement('section');
@@ -26,14 +27,14 @@ export class ProblemView {
       cardContainer.appendChild(card);
     });
 
-    ProblemView.#addCardClickHandler(cardContainer, cardNavigatorFn);
+    ProblemView.#addCardClickHandler(cardContainer, navigateToProblemFn);
 
     this.container.appendChild(cardContainer);
   }
 
   static #addCardClickHandler(
     cardContainer: HTMLElement,
-    cardNavigatorFn: CardNavigatorFn
+    navigateToProblemFn: NavigateToProblemFn
   ) {
     cardContainer.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
@@ -47,10 +48,12 @@ export class ProblemView {
         if (!cardName)
           throw new Error('Card must have a name to navigate to it.');
 
-        cardNavigatorFn(cardName);
+        navigateToProblemFn(cardName);
       }
     });
   }
 }
+
+export type { ProblemView };
 
 export default new ProblemView();

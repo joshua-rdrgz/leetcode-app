@@ -1,7 +1,8 @@
-import problemModel from '@/models/problems/ProblemModel';
-import problemView from '@/views/ProblemView';
-import { ProblemController } from '@/controllers/ProblemController';
+import { NavigationController } from '@/features/navigation/NavigationController';
 
-const controller = new ProblemController(problemModel, problemView);
+function initializeApp() {
+  NavigationController.initialize();
+  NavigationController.navigateToHome();
+}
 
-controller.initialize();
+initializeApp();
