@@ -27,12 +27,12 @@ class ProblemView {
       cardContainer.appendChild(card);
     });
 
-    ProblemView.#addCardClickHandler(cardContainer, navigateToProblemFn);
+    ProblemView.addCardClickHandler(cardContainer, navigateToProblemFn);
 
     this.container.appendChild(cardContainer);
   }
 
-  static #addCardClickHandler(
+  private static addCardClickHandler(
     cardContainer: HTMLElement,
     navigateToProblemFn: NavigateToProblemFn
   ) {
