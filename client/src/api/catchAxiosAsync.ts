@@ -20,13 +20,15 @@ export default async function catchAxiosAsync(
         '❌ AXIOS ERROR: ❌ \n',
         'Error: ',
         error,
-        '\n\n Reponse: ',
+        '\n\n Response: ',
         error.response,
         '\n\n 💬 Message: 💬 \n',
-        error.response?.data.message
+        error.message
       );
     } else {
       console.log('🔥 UNKNOWN ERROR: 🔥 \n', error);
     }
+
+    return null;
   }
 }
