@@ -6,7 +6,7 @@ class ProblemModel {
 
   async fetchProblems(): Promise<void> {
     const data = await request.get('/api/v1/leetcode/problems');
-    this.data = data.data;
+    this.data = data?.data || [];
   }
 }
 
