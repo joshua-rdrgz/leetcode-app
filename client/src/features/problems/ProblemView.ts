@@ -1,8 +1,8 @@
 import { type NavigateToProblemFn } from '@/features/navigation/NavigationController';
 import { ProblemData } from './ProblemData';
 
-class ProblemView {
-  container: HTMLElement;
+export class ProblemView {
+  protected container: HTMLElement;
 
   constructor() {
     this.container = document.getElementById('problems')!;
@@ -53,7 +53,5 @@ class ProblemView {
     });
   }
 }
-
-export type { ProblemView };
 
 export default new ProblemView();

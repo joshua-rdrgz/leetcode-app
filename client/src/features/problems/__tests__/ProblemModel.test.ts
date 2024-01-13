@@ -1,9 +1,11 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { type ProblemData } from '../ProblemData';
-import problemModel from '../ProblemModel';
+import { TestProblemModel } from '../tests/TestProblemModel';
 
 describe('ProblemModel', () => {
+  const problemModel = new TestProblemModel();
+
   describe('fetchProblems', () => {
     let mock: MockAdapter;
 
@@ -13,6 +15,7 @@ describe('ProblemModel', () => {
 
     afterEach(() => {
       mock.restore();
+      problemModel.clearData();
     });
 
     it('should fetch problems and update the data property', async () => {
@@ -24,7 +27,7 @@ describe('ProblemModel', () => {
 
       await problemModel.fetchProblems();
 
-      expect(problemModel.data).toEqual(mockData);
+      expect(problemModel.getData()).toEqual(mockData);
     });
 
     it('should set data to empty array if errors occur in the request', async () => {
@@ -32,7 +35,7 @@ describe('ProblemModel', () => {
 
       await problemModel.fetchProblems();
 
-      expect(problemModel.data).toEqual([]);
+      expect(problemModel.getData()).toEqual([]);
     });
 
     it('should set data to empty array if the request has no data property', async () => {
@@ -40,7 +43,7 @@ describe('ProblemModel', () => {
 
       await problemModel.fetchProblems();
 
-      expect(problemModel.data).toEqual([]);
+      expect(problemModel.getData()).toEqual([]);
     });
   });
 });

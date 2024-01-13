@@ -13,7 +13,7 @@ export class ProblemController {
 
   async initialize() {
     await this.model.fetchProblems();
-    this.view.renderGrid(this.model.data, (cardName: string) => {
+    this.view.renderGrid(this.model.getData(), (cardName: string) => {
       NavigationController.navigateToProblem(cardName);
     });
   }

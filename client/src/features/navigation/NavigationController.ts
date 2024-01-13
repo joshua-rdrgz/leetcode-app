@@ -2,7 +2,7 @@ import Navigo, { type Match } from 'navigo';
 import { problemsPageInit } from '@/features/problems';
 
 export class NavigationController {
-  private static router: Navigo = new Navigo('/');
+  protected static router: Navigo = new Navigo('/');
 
   static initialize() {
     this.router

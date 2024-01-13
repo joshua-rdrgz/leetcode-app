@@ -1,9 +1,11 @@
 import { NavigateToProblemFn } from '@/features/navigation/NavigationController';
-import problemView from '../ProblemView';
+import { TestProblemView } from '../tests/TestProblemView';
 
 describe('ProblemView', () => {
   let container: HTMLElement;
   let navigateToProblemFn: jest.MockedFunction<NavigateToProblemFn>;
+
+  const problemView = new TestProblemView();
 
   beforeEach(() => {
     // 1. Create Container
@@ -12,7 +14,7 @@ describe('ProblemView', () => {
 
     // 2. Assign Container to document/problemView
     document.body.appendChild(container);
-    problemView.container = container;
+    problemView.setContainer(container);
 
     // 3. Mock navigateToProblemFn
     navigateToProblemFn = jest.fn();
