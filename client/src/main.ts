@@ -1,8 +1,7 @@
-import { NavigationController } from '@/features/navigation/NavigationController';
+import { NavigationController } from '@/navigation/NavigationController';
 
 function initializeApp() {
   NavigationController.initialize();
-  NavigationController.navigateToHome();
 }
 
 initializeApp();
