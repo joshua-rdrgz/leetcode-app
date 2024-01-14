@@ -60,3 +60,8 @@ dist-ssr
 ### CUSTOM ###
 .git/
 .env
+
+### CYPRESS ###
+client/cypress/videos
+client/cypress/screenshots
+
