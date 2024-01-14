@@ -1,7 +1,7 @@
-import { TestNavigationController } from '@/features/navigation/tests/TestNavigationController';
+import { TestNavigationController } from '@/navigation/tests/TestNavigationController';
 import { ProblemController } from '@/features/problems/ProblemController';
 import { TestProblemModel } from '@/features/problems/tests/TestProblemModel';
-import { TestProblemView } from '@/features/problems/tests/TestProblemView';
+import { TestProblemView } from '@/features/problems/tests/TestProblemsView';
 
 jest.mock('@/api/request', () => ({
   get: jest.fn().mockResolvedValue({
@@ -32,7 +32,7 @@ describe('ProblemController', () => {
 
   afterEach(() => {
     problemModel.clearData();
-    problemView.clearContainer();
+    problemView.clearContainerTest();
   });
 
   describe('initialize()', () => {
@@ -46,7 +46,7 @@ describe('ProblemController', () => {
     });
 
     it('renders the card grid with fetched problems', async () => {
-      const renderGridSpy = jest.spyOn(problemView, 'renderGrid');
+      const renderGridSpy = jest.spyOn(problemView, 'render');
       await controller.initialize();
 
       expect(renderGridSpy).toHaveBeenCalledWith(
