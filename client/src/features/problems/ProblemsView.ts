@@ -1,24 +1,39 @@
-import { type NavigateToProblemFn } from '@/features/navigation/NavigationController';
+import { type NavigateToUrlFn } from '@/navigation/NavigationController';
 import { ProblemData } from './ProblemData';
+import { BaseView } from '@/base/BaseView';
 
-export class ProblemView {
+export class ProblemsView extends BaseView {
   protected container: HTMLElement;
 
   constructor() {
-    this.container = document.getElementById('problems')!;
+    super();
+    this.container = document.createElement('section');
+    this.container.id = 'problems';
   }
 
-  renderGrid(
+  protected renderImpl(
     problems: ProblemData[],
-    navigateToProblemFn: NavigateToProblemFn
+    navigateToUrlFn: NavigateToUrlFn
   ) {
-    this.container.innerHTML = '';
+    this.clearContainer();
+    this.renderGrid(problems, navigateToUrlFn);
+    this.appendContainerToDOM();
+  }
 
-    const cardContainer = document.createElement('section');
+  protected clearContainer() {
+    this.container.innerHTML = '';
+  }
+
+  private renderGrid(
+    problems: ProblemData[],
+    navigateToUrlFn: NavigateToUrlFn
+  ) {
+    const cardContainer = document.createElement('div');
     cardContainer.classList.add('grid');
 
     problems.forEach((problem) => {
       const card = document.createElement('div');
+      card.setAttribute('data-test', 'problem-card');
       card.classList.add('card');
       card.innerHTML = `
                 <h2 class="card__name">${problem.name}</h2>
@@ -27,14 +42,14 @@ export class ProblemView {
       cardContainer.appendChild(card);
     });
 
-    ProblemView.addCardClickHandler(cardContainer, navigateToProblemFn);
+    ProblemsView.addCardClickHandler(cardContainer, navigateToUrlFn);
 
     this.container.appendChild(cardContainer);
   }
 
   private static addCardClickHandler(
     cardContainer: HTMLElement,
-    navigateToProblemFn: NavigateToProblemFn
+    navigateToUrlFn: NavigateToUrlFn
   ) {
     cardContainer.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
@@ -48,10 +63,14 @@ export class ProblemView {
         if (!cardName)
           throw new Error('Card must have a name to navigate to it.');
 
-        navigateToProblemFn(cardName);
+        navigateToUrlFn(cardName);
       }
     });
   }
+
+  private appendContainerToDOM() {
+    this.rootElement.appendChild(this.container);
+  }
 }
 
-export default new ProblemView();
+export default new ProblemsView();

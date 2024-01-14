@@ -8,7 +8,9 @@ export class NavigationController {
     this.router
       .on({
         // ** HOME PAGE **
-        '/': problemsPageInit,
+        '/': () => {
+          problemsPageInit();
+        },
         // ** SOLVE PAGE **
         '/problem/:solvePage': (match: Match) => {
           console.log('match: ', match);
@@ -21,10 +23,9 @@ export class NavigationController {
     this.router.navigate('/');
   }
 
-  static navigateToProblem(cardName: string) {
-    const encodedCardName = encodeURIComponent(cardName);
-    this.router.navigate(`/problem/${encodedCardName}`);
+  static navigateToUrl(url: string) {
+    this.router.navigate(url);
   }
 }
 
-export type NavigateToProblemFn = typeof NavigationController.navigateToProblem;
+export type NavigateToUrlFn = typeof NavigationController.navigateToUrl;

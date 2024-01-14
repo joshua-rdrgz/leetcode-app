@@ -1,9 +1,9 @@
-import { NavigateToProblemFn } from '@/features/navigation/NavigationController';
-import { TestProblemView } from '../tests/TestProblemView';
+import { NavigateToUrlFn } from '@/navigation/NavigationController';
+import { TestProblemView } from '../tests/TestProblemsView';
 
 describe('ProblemView', () => {
   let container: HTMLElement;
-  let navigateToProblemFn: jest.MockedFunction<NavigateToProblemFn>;
+  let navigateToUrlFn: jest.MockedFunction<NavigateToUrlFn>;
 
   const problemView = new TestProblemView();
 
@@ -16,25 +16,25 @@ describe('ProblemView', () => {
     document.body.appendChild(container);
     problemView.setContainer(container);
 
-    // 3. Mock navigateToProblemFn
-    navigateToProblemFn = jest.fn();
+    // 3. Mock navigateToUrlFn
+    navigateToUrlFn = jest.fn();
   });
 
   afterEach(() => {
     document.body.removeChild(container);
   });
 
-  describe('renderGrid', () => {
+  describe('render', () => {
     it('clears existing container children', () => {
       container.innerHTML = '<p>Existing content</p>';
 
-      problemView.renderGrid([], navigateToProblemFn);
+      problemView.render([], navigateToUrlFn);
 
       expect(container.innerHTML).toBe('<section class="grid"></section>');
     });
 
     it('creates card container element', () => {
-      problemView.renderGrid([], navigateToProblemFn);
+      problemView.render([], navigateToUrlFn);
 
       expect(container.querySelector('.grid')).not.toBeNull();
     });
@@ -53,7 +53,7 @@ describe('ProblemView', () => {
         },
       ];
 
-      problemView.renderGrid(problems, navigateToProblemFn);
+      problemView.render(problems, navigateToUrlFn);
 
       const cards = container.querySelectorAll('.card');
       expect(cards.length).toBe(2);
@@ -71,7 +71,7 @@ describe('ProblemView', () => {
         endpoint: 'test',
       };
 
-      problemView.renderGrid([problem], navigateToProblemFn);
+      problemView.render([problem], navigateToUrlFn);
 
       const card = container.querySelector('.card')!;
       const clickEvent = new MouseEvent('click', {
@@ -81,7 +81,7 @@ describe('ProblemView', () => {
       });
       card.dispatchEvent(clickEvent);
 
-      expect(navigateToProblemFn).toHaveBeenCalledWith('test problem');
+      expect(navigateToUrlFn).toHaveBeenCalledWith('test problem');
     });
   });
 });

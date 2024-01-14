@@ -1,4 +1,4 @@
-import { NavigationController } from '@/features/navigation/NavigationController';
+import { NavigationController } from '@/navigation/NavigationController';
 
 export class TestNavigationController extends NavigationController {
   static getRouter() {
