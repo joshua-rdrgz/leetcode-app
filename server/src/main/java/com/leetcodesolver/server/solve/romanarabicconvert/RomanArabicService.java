@@ -28,7 +28,7 @@ public class RomanArabicService {
             RomanArabicDAOService.saveConversion(convertedRN, arabicNumeral);
 
             return new RomanArabicResponse(
-                    new RomanArabicData(convertedRN, arabicNumeral));
+                    new RomanArabicData(convertedRN, arabicNumeral, false));
         }
 
         String romanNumeral = romanOrArabic;
@@ -45,6 +45,6 @@ public class RomanArabicService {
         int convertedAN = RomanArabicConvert.toArabicNumber(romanNumeral);
         RomanArabicDAOService.saveConversion(romanNumeral, convertedAN);
         return new RomanArabicResponse(
-                new RomanArabicData(romanNumeral, convertedAN));
+                new RomanArabicData(romanNumeral, convertedAN, false));
     }
 }

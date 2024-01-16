@@ -15,10 +15,22 @@ public class RomanArabicResponse
     public static class RomanArabicData {
         private String romanNumeral;
         private int number;
+        private boolean foundInDB;
 
-        public RomanArabicData(String rn, int num) {
-            romanNumeral = rn;
-            number = num;
+        public RomanArabicData(String romanNumeral, int number, boolean foundInDB) {
+            this.romanNumeral = romanNumeral;
+            this.number = number;
+            this.foundInDB = foundInDB;
+        }
+
+        /**
+         * For use when returning cached conversions.
+         * 
+         * @param romanNumeral
+         * @param number
+         */
+        public RomanArabicData(String romanNumeral, int number) {
+            this(romanNumeral, number, true);
         }
     }
 }
