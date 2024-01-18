@@ -12,7 +12,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isA;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,16 +27,20 @@ public class RomanArabicServiceE2ETest {
     public void convert_validArabicNumber_returnsRomanNumeral() throws Exception {
         mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/1234"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(
-                        "{\"status\":\"success\",\"statusCode\":200,\"data\":{\"romanNumeral\":\"MCCXXXIV\",\"number\":1234}}"));
+                .andExpect(jsonPath("$.status", equalTo("success")))
+                .andExpect(jsonPath("$.statusCode", equalTo(200)))
+                .andExpect(jsonPath("$.data.romanNumeral", equalTo("MCCXXXIV")))
+                .andExpect(jsonPath("$.data.number", equalTo(1234)));
     }
 
     @Test
     public void convert_validRomanNumeral_returnsArabicNumber() throws Exception {
         mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/MMXXIII"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(
-                        "{\"status\":\"success\",\"statusCode\":200,\"data\":{\"romanNumeral\":\"MMXXIII\",\"number\":2023}}"));
+                .andExpect(jsonPath("$.status", equalTo("success")))
+                .andExpect(jsonPath("$.statusCode", equalTo(200)))
+                .andExpect(jsonPath("$.data.romanNumeral", equalTo("MMXXIII")))
+                .andExpect(jsonPath("$.data.number", equalTo(2023)));
     }
 
     @Test
@@ -93,6 +96,28 @@ public class RomanArabicServiceE2ETest {
                 .andExpect(jsonPath(
                         "$.timestamp",
                         isA(Long.class)));
+    }
+
+    @Test
+    public void conversion_foundInDB_returnsCorrectValue() throws Exception {
+        // Make an initial conversion to populate the cache
+        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/CXXIII"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.foundInDB", equalTo(false)));
+
+        // Verify the initial conversion was cached (by doing the same conversion again)
+        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/CXXIII"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.foundInDB", equalTo(true)));
+
+        // Clear the cache
+        mockMvc.perform(delete("/api/v1/leetcode/solve/roman-arabic-convert/cache"))
+                .andExpect(status().isNoContent());
+
+        // Verify the conversion is not found in the cache after the deletion
+        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/CXXIII"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.foundInDB", equalTo(false)));
     }
 
     @Test
