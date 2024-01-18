@@ -12,13 +12,23 @@ public class RomanArabicValidate {
         }
     }
 
-    public static void validateArabicNumeral(int arabicNumeral) {
+    public static void validate(Object input, boolean isArabic) {
+        if (isArabic) {
+            int arabicNumeral = (int) input;
+            validateData(arabicNumeral);
+        } else {
+            String romanNumeral = (String) input;
+            validateData(romanNumeral);
+        }
+    }
+
+    public static void validateData(int arabicNumeral) {
         if (arabicNumeral < 1 || arabicNumeral > 3999) {
             throw new InvalidInputException("Arabic integer must be between the ranges: 1 <= number <= 3999.");
         }
     }
 
-    public static void validateRomanNumeral(String romanNumeralInput) {
+    public static void validateData(String romanNumeralInput) {
         if (romanNumeralInput == null || romanNumeralInput.isEmpty()) {
             throw new InvalidInputException("Roman numeral must not be empty.");
         }

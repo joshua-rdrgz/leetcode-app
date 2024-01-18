@@ -20,7 +20,17 @@ public class RomanArabicDAOService {
         romanIntDao.save(conversion);
     }
 
-    public static RomanArabicResponse checkDatabase(int number) {
+    public static RomanArabicResponse checkDatabase(Object input, boolean isArabic) {
+        if (isArabic) {
+            int arabicNumeral = (int) input;
+            return checkDatabaseFor(arabicNumeral);
+        } else {
+            String romanNumeral = (String) input;
+            return checkDatabaseFor(romanNumeral);
+        }
+    }
+
+    public static RomanArabicResponse checkDatabaseFor(int number) {
         Optional<RomanArabicEntity> cachedConversion = romanIntDao
                 .findByNumber(number);
 
@@ -32,7 +42,7 @@ public class RomanArabicDAOService {
                 .orElse(null);
     }
 
-    public static RomanArabicResponse checkDatabase(String romanNumeral) {
+    public static RomanArabicResponse checkDatabaseFor(String romanNumeral) {
         Optional<RomanArabicEntity> cachedConversion = romanIntDao
                 .findByRomanNumeral(romanNumeral);
 

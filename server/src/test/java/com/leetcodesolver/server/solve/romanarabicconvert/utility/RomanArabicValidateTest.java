@@ -31,32 +31,32 @@ public class RomanArabicValidateTest {
 
     @Test
     public void validateArabicNumeral_validNumber_doesNotThrow() {
-        RomanArabicValidate.validateArabicNumeral(2000); // Should not throw an exception
+        RomanArabicValidate.validateData(2000); // Should not throw an exception
     }
 
     @Test
     public void validateArabicNumeral_numberLessThan1_throwsException() {
         assertThrows(InvalidInputException.class,
-                () -> RomanArabicValidate.validateArabicNumeral(0));
+                () -> RomanArabicValidate.validateData(0));
     }
 
     @Test
     public void validateArabicNumeral_numberGreaterThan3999_throwsException() {
         assertThrows(InvalidInputException.class,
-                () -> RomanArabicValidate.validateArabicNumeral(4000));
+                () -> RomanArabicValidate.validateData(4000));
     }
 
-    // validateArabicNumeral TESTS
+    // validateRomanNumeral TESTS
     // //////////////////////////////////////////
 
     @Test
     public void validateRomanNumeral_validRomanNumeral_doesNotThrow() {
-        RomanArabicValidate.validateRomanNumeral("MMXXI"); // Should not throw an exception
+        RomanArabicValidate.validateData("MMXXI"); // Should not throw an exception
     }
 
     @Test
     public void validateRomanNumeral_invalidRomanNumeral_throwsException() {
         assertThrows(InvalidInputException.class,
-                () -> RomanArabicValidate.validateRomanNumeral("IIII"));
+                () -> RomanArabicValidate.validateData("IIII"));
     }
 }
