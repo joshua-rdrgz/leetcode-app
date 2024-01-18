@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class RomanArabicService {
 
+    public void clearCache() {
+        RomanArabicDAOService.deleteAll();
+    }
+
     public RomanArabicResponse convert(String romanOrArabic) {
         if (RomanArabicValidate.isArabicNumeral(romanOrArabic)) {
             return processConversion(Integer.parseInt(romanOrArabic), true);

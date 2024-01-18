@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isA;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -92,6 +93,24 @@ public class RomanArabicServiceE2ETest {
                 .andExpect(jsonPath(
                         "$.timestamp",
                         isA(Long.class)));
+    }
+
+    @Test
+    public void flushCache_deletesCachedConversions() throws Exception {
+        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/CXXIII"))
+                .andExpect(status().isOk());
+
+        // Verify conversion was cached in database
+        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/CXXIII"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.foundInDB", equalTo(true)));
+
+        mockMvc.perform(delete("/api/v1/leetcode/solve/roman-arabic-convert/cache"))
+                .andExpect(status().isNoContent());
+
+        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/CXXIII"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.foundInDB", equalTo(false)));
     }
 
 }

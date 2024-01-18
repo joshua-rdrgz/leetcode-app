@@ -15,6 +15,10 @@ public class RomanArabicDAOService {
         romanIntDao = dao;
     }
 
+    public static void deleteAll() {
+        romanIntDao.deleteAll();
+    }
+
     public static void saveConversion(String romanNumeral, int number) {
         RomanArabicEntity conversion = new RomanArabicEntity(romanNumeral, number);
         romanIntDao.save(conversion);
