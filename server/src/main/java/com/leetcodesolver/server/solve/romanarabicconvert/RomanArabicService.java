@@ -15,45 +15,41 @@ public class RomanArabicService {
     }
 
     public RomanArabicResponse convert(String romanOrArabic) {
-        if (RomanArabicValidate.isArabicNumeral(romanOrArabic)) {
-            return processConversion(Integer.parseInt(romanOrArabic), true);
-        } else {
-            return processConversion(romanOrArabic, false);
-        }
+        return processConversion(
+                romanOrArabic,
+                RomanArabicValidate.isArabicNumeral(romanOrArabic));
     }
 
-    private RomanArabicResponse processConversion(Object input, boolean isArabic) {
+    private RomanArabicResponse processConversion(String input, boolean isArabic) {
         RomanArabicValidate.validate(input, isArabic);
 
         RomanArabicResponse cached = RomanArabicDAOService.checkDatabase(input, isArabic);
         if (cached != null) {
-            System.out.println("Found conversion in database!");
             return cached;
         }
 
         return convertSaveAndReturn(input, isArabic);
     }
 
-    private RomanArabicResponse convertSaveAndReturn(Object input, boolean isArabic) {
-        System.out.println("Didn't find conversion in database, converting....");
+    private RomanArabicResponse convertSaveAndReturn(String input, boolean isArabic) {
         Object converted = RomanArabicConvert.convert(input, isArabic);
+        String romanNumeral;
+        int arabicNumeral;
 
         if (isArabic) {
-            RomanArabicDAOService.saveConversion((String) converted, (int) input);
-
-            return new RomanArabicResponse(
-                    new RomanArabicData(
-                            converted.toString(),
-                            Integer.parseInt(input.toString()),
-                            false));
+            romanNumeral = (String) converted;
+            arabicNumeral = Integer.parseInt(input);
         } else {
-            RomanArabicDAOService.saveConversion((String) input, (int) converted);
-
-            return new RomanArabicResponse(
-                    new RomanArabicData(
-                            input.toString(),
-                            Integer.parseInt(converted.toString()),
-                            false));
+            romanNumeral = input;
+            arabicNumeral = (int) converted;
         }
+
+        RomanArabicDAOService.saveConversion(romanNumeral, arabicNumeral);
+
+        return new RomanArabicResponse(
+                new RomanArabicData(
+                        romanNumeral,
+                        arabicNumeral,
+                        false));
     }
 }

@@ -24,17 +24,17 @@ public class RomanArabicDAOService {
         romanIntDao.save(conversion);
     }
 
-    public static RomanArabicResponse checkDatabase(Object input, boolean isArabic) {
+    public static RomanArabicResponse checkDatabase(String input, boolean isArabic) {
         if (isArabic) {
-            int arabicNumeral = (int) input;
+            int arabicNumeral = Integer.parseInt(input);
             return checkDatabaseFor(arabicNumeral);
         } else {
-            String romanNumeral = (String) input;
+            String romanNumeral = input;
             return checkDatabaseFor(romanNumeral);
         }
     }
 
-    public static RomanArabicResponse checkDatabaseFor(int number) {
+    private static RomanArabicResponse checkDatabaseFor(int number) {
         Optional<RomanArabicEntity> cachedConversion = romanIntDao
                 .findByNumber(number);
 
@@ -46,7 +46,7 @@ public class RomanArabicDAOService {
                 .orElse(null);
     }
 
-    public static RomanArabicResponse checkDatabaseFor(String romanNumeral) {
+    private static RomanArabicResponse checkDatabaseFor(String romanNumeral) {
         Optional<RomanArabicEntity> cachedConversion = romanIntDao
                 .findByRomanNumeral(romanNumeral);
 

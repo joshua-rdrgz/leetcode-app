@@ -12,34 +12,31 @@ public class RomanArabicValidate {
         }
     }
 
-    public static void validate(Object input, boolean isArabic) {
+    public static void validate(String input, boolean isArabic) {
         if (isArabic) {
-            int arabicNumeral = (int) input;
+            int arabicNumeral = Integer.parseInt(input);
             validateData(arabicNumeral);
         } else {
-            String romanNumeral = (String) input;
+            String romanNumeral = input;
             validateData(romanNumeral);
         }
     }
 
-    public static void validateData(int arabicNumeral) {
+    static void validateData(int arabicNumeral) {
         if (arabicNumeral < 1 || arabicNumeral > 3999) {
             throw new InvalidInputException("Arabic integer must be between the ranges: 1 <= number <= 3999.");
         }
     }
 
-    public static void validateData(String romanNumeralInput) {
+    static void validateData(String romanNumeralInput) {
         if (romanNumeralInput == null || romanNumeralInput.isEmpty()) {
             throw new InvalidInputException("Roman numeral must not be empty.");
         }
 
-        // Convert the input to uppercase for case-insensitivity
         String romanNumeral = romanNumeralInput.toUpperCase();
 
-        // Define the valid Roman numeral characters
         String validChars = "IVXLCDM";
 
-        // Iterate through each character in the Roman numeral
         for (char c : romanNumeral.toCharArray()) {
             if (validChars.indexOf(c) == -1) {
                 // Character is not a valid Roman numeral character
