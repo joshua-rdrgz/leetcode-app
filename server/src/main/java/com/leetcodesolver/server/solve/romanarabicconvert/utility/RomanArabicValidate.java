@@ -3,32 +3,22 @@ package com.leetcodesolver.server.solve.romanarabicconvert.utility;
 import com.leetcodesolver.server.error.InvalidInputException;
 
 public class RomanArabicValidate {
-    public static boolean isArabicNumeral(String romanOrArabic) {
-        try {
-            Integer.parseInt(romanOrArabic);
-            return true;
-        } catch (NumberFormatException exception) {
-            return false;
-        }
-    }
 
-    public static void validate(String input, boolean isArabic) {
-        if (isArabic) {
-            int arabicNumeral = Integer.parseInt(input);
-            validateData(arabicNumeral);
+    public static void validate(RomanArabicInput input) {
+        if (input.isArabicNumeral()) {
+            validateArabicNumeral(input.getArabicNumeral());
         } else {
-            String romanNumeral = input;
-            validateData(romanNumeral);
+            validateRomanNumeral(input.getRomanNumeral());
         }
     }
 
-    static void validateData(int arabicNumeral) {
+    static void validateArabicNumeral(int arabicNumeral) {
         if (arabicNumeral < 1 || arabicNumeral > 3999) {
             throw new InvalidInputException("Arabic integer must be between the ranges: 1 <= number <= 3999.");
         }
     }
 
-    static void validateData(String romanNumeralInput) {
+    static void validateRomanNumeral(String romanNumeralInput) {
         if (romanNumeralInput == null || romanNumeralInput.isEmpty()) {
             throw new InvalidInputException("Roman numeral must not be empty.");
         }

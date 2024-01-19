@@ -3,6 +3,7 @@ package com.leetcodesolver.server.solve.romanarabicconvert.dao;
 import com.leetcodesolver.server.solve.romanarabicconvert.entity.RomanArabicEntity;
 import com.leetcodesolver.server.solve.romanarabicconvert.response.RomanArabicResponse;
 import com.leetcodesolver.server.solve.romanarabicconvert.response.RomanArabicResponse.RomanArabicData;
+import com.leetcodesolver.server.solve.romanarabicconvert.utility.RomanArabicInput;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -24,13 +25,11 @@ public class RomanArabicDAOService {
         romanIntDao.save(conversion);
     }
 
-    public static RomanArabicResponse checkDatabase(String input, boolean isArabic) {
-        if (isArabic) {
-            int arabicNumeral = Integer.parseInt(input);
-            return checkDatabaseFor(arabicNumeral);
+    public static RomanArabicResponse checkDatabase(RomanArabicInput input) {
+        if (input.isArabicNumeral()) {
+            return checkDatabaseFor(input.getArabicNumeral());
         } else {
-            String romanNumeral = input;
-            return checkDatabaseFor(romanNumeral);
+            return checkDatabaseFor(input.getRomanNumeral());
         }
     }
 

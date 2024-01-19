@@ -4,6 +4,7 @@ import com.leetcodesolver.server.solve.romanarabicconvert.dao.RomanArabicDAOServ
 import com.leetcodesolver.server.solve.romanarabicconvert.response.RomanArabicResponse;
 import com.leetcodesolver.server.solve.romanarabicconvert.response.RomanArabicResponse.RomanArabicData;
 import com.leetcodesolver.server.solve.romanarabicconvert.utility.RomanArabicConvert;
+import com.leetcodesolver.server.solve.romanarabicconvert.utility.RomanArabicInput;
 import com.leetcodesolver.server.solve.romanarabicconvert.utility.RomanArabicValidate;
 import org.springframework.stereotype.Service;
 
@@ -15,32 +16,30 @@ public class RomanArabicService {
     }
 
     public RomanArabicResponse convert(String romanOrArabic) {
-        return processConversion(
-                romanOrArabic,
-                RomanArabicValidate.isArabicNumeral(romanOrArabic));
+        return processConversion(new RomanArabicInput(romanOrArabic));
     }
 
-    private RomanArabicResponse processConversion(String input, boolean isArabic) {
-        RomanArabicValidate.validate(input, isArabic);
+    private RomanArabicResponse processConversion(RomanArabicInput input) {
+        RomanArabicValidate.validate(input);
 
-        RomanArabicResponse cached = RomanArabicDAOService.checkDatabase(input, isArabic);
+        RomanArabicResponse cached = RomanArabicDAOService.checkDatabase(input);
         if (cached != null) {
             return cached;
         }
 
-        return convertSaveAndReturn(input, isArabic);
+        return convertSaveAndReturn(input);
     }
 
-    private RomanArabicResponse convertSaveAndReturn(String input, boolean isArabic) {
-        Object converted = RomanArabicConvert.convert(input, isArabic);
+    private RomanArabicResponse convertSaveAndReturn(RomanArabicInput input) {
+        Object converted = RomanArabicConvert.convert(input);
         String romanNumeral;
         int arabicNumeral;
 
-        if (isArabic) {
+        if (input.isArabicNumeral()) {
             romanNumeral = (String) converted;
-            arabicNumeral = Integer.parseInt(input);
+            arabicNumeral = input.getArabicNumeral();
         } else {
-            romanNumeral = input;
+            romanNumeral = input.getRomanNumeral();
             arabicNumeral = (int) converted;
         }
 

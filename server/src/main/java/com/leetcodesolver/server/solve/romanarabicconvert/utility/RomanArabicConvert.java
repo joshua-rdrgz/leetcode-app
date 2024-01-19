@@ -4,17 +4,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class RomanArabicConvert {
-    public static Object convert(String input, boolean isArabic) {
-        if (isArabic) {
-            int arabicNumeral = Integer.parseInt(input);
-            return convertData(arabicNumeral);
+    public static Object convert(RomanArabicInput input) {
+        if (input.isArabicNumeral()) {
+            return toRomanNumeral(input.getArabicNumeral());
         } else {
-            String romanNumeral = input;
-            return convertData(romanNumeral);
+            return toArabicNumeral(input.getRomanNumeral());
         }
     }
 
-    static int convertData(String originalRomanNumeral) {
+    static int toArabicNumeral(String originalRomanNumeral) {
         String romanNumeral = originalRomanNumeral;
         int arabicNumeral = 0;
 
@@ -28,7 +26,7 @@ public class RomanArabicConvert {
         return arabicNumeral;
     }
 
-    static String convertData(int originalArabicNumeral) {
+    static String toRomanNumeral(int originalArabicNumeral) {
         int arabicNumeral = originalArabicNumeral;
         StringBuilder romanNumeral = new StringBuilder();
 
