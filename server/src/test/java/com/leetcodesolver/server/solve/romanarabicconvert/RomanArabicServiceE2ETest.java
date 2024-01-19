@@ -100,22 +100,22 @@ public class RomanArabicServiceE2ETest {
 
     @Test
     public void conversion_foundInDB_returnsCorrectValue() throws Exception {
-        // Make an initial conversion to populate the cache
-        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/CXXIII"))
+        // 1) Make an initial conversion to populate the cache
+        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/123"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.foundInDB", equalTo(false)));
 
-        // Verify the initial conversion was cached (by doing the same conversion again)
-        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/CXXIII"))
+        // 2) Verify the initial conversion was cached
+        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/123"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.foundInDB", equalTo(true)));
 
-        // Clear the cache
+        // 3) Clear the cache
         mockMvc.perform(delete("/api/v1/leetcode/solve/roman-arabic-convert/cache"))
                 .andExpect(status().isNoContent());
 
-        // Verify the conversion is not found in the cache after the deletion
-        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/CXXIII"))
+        // 4) Verify the conversion is not found in the cache after the deletion
+        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/123"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.foundInDB", equalTo(false)));
     }
