@@ -101,7 +101,7 @@ public class RomanArabicServiceE2ETest {
     @ParameterizedTest
     @CsvSource({
             "MMXXII, 2022",
-            "mMix, 2019",
+            "mMix, 2009",
             "xIv, 14",
             "cD, 400",
             "ViII, 8"
