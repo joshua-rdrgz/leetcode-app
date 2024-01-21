@@ -6,7 +6,8 @@ public class RomanArabicInput {
     private String input;
 
     public RomanArabicInput(String input) {
-        this.input = input;
+        // sanitize input by conforming potential RNs to uppercase
+        this.input = input.toUpperCase();
     }
 
     public boolean isArabicNumeral() {
