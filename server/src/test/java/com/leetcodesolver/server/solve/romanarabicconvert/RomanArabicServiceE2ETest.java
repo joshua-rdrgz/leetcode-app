@@ -1,7 +1,6 @@
 package com.leetcodesolver.server.solve.romanarabicconvert;
 
 import org.apache.commons.lang3.math.NumberUtils;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -27,12 +26,19 @@ public class RomanArabicServiceE2ETest {
 
     @ParameterizedTest
     @CsvSource({
+            "1, I",
+            "47, XLVII",
+            "692, DCXCII",
             "1234, MCCXXXIV",
             "2023, MMXXIII",
-            "187, CLXXXVII",
+            "3999, MMMCMXCIX",
             "III, 3",
-            "IX, 9",
-            "MMX, 2010"
+            "XIX, 19",
+            "XLIX, 49",
+            "DLXVII, 567",
+            "MDCCCXCIX, 1899",
+            "MMXVIII, 2018",
+            "MMMCMXCVIII, 3998"
     })
     public void convert_validNumeral_returnsCorrectRepresentation(String input, String output) throws Exception {
         boolean inputIsArabic = NumberUtils.isDigits(input);
@@ -62,8 +68,12 @@ public class RomanArabicServiceE2ETest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "IIV", "IIX", "IL", "IC", "ID", "IM", "VX", "VL", "VC", "VD", "VM",
-            "CCM", "CDM", "CMM", "XD", "XM", "LC", "LD", "LM", "DM",
+            "IIV", "IIX", "VIX",
+            "IL", "IC", "ID", "IM",
+            "VX", "VL", "VC", "VD", "VM",
+            "CCM", "CDM", "CMM",
+            "XD", "XM",
+            "LC", "LD", "LM", "DM",
             "IIII", "VVVV", "XXXX", "LLLL", "CCCC", "DDDD", "MMMM"
     })
     public void convert_invalidRomanNumeral_returnsErrorResponse(String invalidRoman) throws Exception {
@@ -83,19 +93,6 @@ public class RomanArabicServiceE2ETest {
                         "$.message",
                         containsString(
                                 "Invalid input received: Input must be a number, or a Roman numeral must only contain valid characters: I, V, X, L, C, D, or M.")));
-    }
-
-    @Test
-    public void convert_nonNumericInput_returnsErrorResponse() throws Exception {
-        mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/abc"))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath(
-                        "$.status",
-                        containsString("error")))
-                .andExpect(jsonPath(
-                        "$.message",
-                        containsString(
-                                "Input must be a number, or a Roman numeral must only contain valid characters: I, V, X, L, C, D, or M.")));
     }
 
     @ParameterizedTest
