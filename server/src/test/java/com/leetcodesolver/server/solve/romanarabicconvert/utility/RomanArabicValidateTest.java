@@ -2,9 +2,13 @@ package com.leetcodesolver.server.solve.romanarabicconvert.utility;
 
 import com.leetcodesolver.server.error.InvalidInputException;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@SpringBootTest
+@ActiveProfiles("test")
 public class RomanArabicValidateTest {
     // validateArabicNumeral TESTS
     // //////////////////////////////////////////
