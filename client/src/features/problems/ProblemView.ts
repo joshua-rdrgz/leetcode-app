@@ -2,7 +2,7 @@ import { type NavigateToUrlFn } from '@/navigation/NavigationController';
 import { ProblemData } from './ProblemData';
 import { BaseView } from '@/base/BaseView';
 
-export class ProblemsView extends BaseView {
+export class ProblemView extends BaseView {
   protected container: HTMLElement;
 
   constructor() {
@@ -37,12 +37,12 @@ export class ProblemsView extends BaseView {
       card.classList.add('card');
       card.innerHTML = `
                 <h2 class="card__name">${problem.name}</h2>
-                <p class="card__description">${problem.description}</p>
+                <p class="card__description">${problem.longDescription}</p>
             `;
       cardContainer.appendChild(card);
     });
 
-    ProblemsView.addCardClickHandler(cardContainer, navigateToUrlFn);
+    ProblemView.addCardClickHandler(cardContainer, navigateToUrlFn);
 
     this.container.appendChild(cardContainer);
   }
@@ -73,4 +73,4 @@ export class ProblemsView extends BaseView {
   }
 }
 
-export default new ProblemsView();
+export default new ProblemView();
