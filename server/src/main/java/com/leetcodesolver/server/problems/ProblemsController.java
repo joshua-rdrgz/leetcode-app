@@ -17,15 +17,15 @@ import java.util.Set;
 @RequestMapping("/api/v1/leetcode/problems")
 public class ProblemsController {
 
-    private static final String SOLVE_PACKAGE = "com.leetcodesolver.server.solve";
+    String SOLVE_PACKAGE = "com.leetcodesolver.server.solve";
+
+    Reflections reflections = new Reflections(new ConfigurationBuilder()
+            .setUrls(ClasspathHelper.forPackage(SOLVE_PACKAGE))
+            .setScanners(Scanners.SubTypes, Scanners.TypesAnnotated));
 
     @GetMapping
     public ProblemsResponse getLeetCodeSuites() {
         List<ProblemsResponse.ProblemsData> problemsData = new ArrayList<>();
-
-        Reflections reflections = new Reflections(new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forPackage(SOLVE_PACKAGE))
-                .setScanners(Scanners.SubTypes, Scanners.TypesAnnotated));
 
         Set<Class<?>> controllerClasses = reflections.getTypesAnnotatedWith(LeetCodeSuiteInfo.class);
         for (Class<?> controllerClass : controllerClasses) {
