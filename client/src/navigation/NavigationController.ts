@@ -1,5 +1,6 @@
 import Navigo, { type Match } from 'navigo';
 import { problemsPageInit } from '@/features/problems';
+import { solvePageInit } from '@/features/solve';
 
 export class NavigationController {
   protected static router: Navigo = new Navigo('/');
@@ -13,7 +14,7 @@ export class NavigationController {
         },
         // ** SOLVE PAGE **
         '/problem/:solvePage': (match: Match) => {
-          console.log('match: ', match);
+          solvePageInit(match);
         },
       })
       .resolve();
