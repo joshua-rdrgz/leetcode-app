@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/leetcode/solve/roman-arabic-convert")
-@LeetCodeSuiteInfo(name = "Roman/Arabic Numeral Converter", shortDescription = "Convert between Roman and Arabic numerals easily.", longDescription = "This LeetCode suite provides utilities for converting between Roman and Arabic numerals.  It utilizes a database that serves as a cache, allowing for optimal performance in the case of requests that have been asked before.", endpoint = "/api/v1/roman-arabic-convert")
+@LeetCodeSuiteInfo(name = "Roman/Arabic Numeral Converter", shortDescription = "Convert between Roman and Arabic numerals easily.", longDescription = "This LeetCode suite provides utilities for converting between Roman and Arabic numerals.  It utilizes a database that serves as a cache, allowing for optimal performance in the case of requests that have been asked before.", endpoint = "/api/v1/leetcode/solve/roman-arabic-convert")
 public class RomanArabicController {
 
     private RomanArabicService romanArabicService;
