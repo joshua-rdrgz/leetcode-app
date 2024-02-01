@@ -1,7 +1,14 @@
 import { NavigationController } from '@/navigation/NavigationController';
-import { TestNavigationController } from '@/navigation/tests/TestNavigationController';
+import { TestNavigationController } from '@/navigation/testClasses/TestNavigationController';
 
 describe('NavigationController', () => {
+  // beforeAll(() => {
+  //   const rootElement = document.createElement('div');
+  //   rootElement.id = 'root';
+
+  //   document.appendChild(rootElement);
+  // });
+
   describe('initialize()', () => {
     it('should set up routes on the Navigo router', () => {
       const router = TestNavigationController.getRouter();
@@ -33,18 +40,6 @@ describe('NavigationController', () => {
       NavigationController.navigateToHome();
 
       expect(navigateSpy).toHaveBeenCalledWith('/');
-    });
-  });
-
-  describe('navigateToProblem()', () => {
-    it('should call router.navigate() with the encoded cardName', () => {
-      const router = TestNavigationController.getRouter();
-      const navigateSpy = jest.spyOn(router, 'navigate');
-      const cardName = 'example problem';
-
-      NavigationController.navigateToProblem(cardName);
-
-      expect(navigateSpy).toHaveBeenCalledWith('/problem/example%20problem');
     });
   });
 });

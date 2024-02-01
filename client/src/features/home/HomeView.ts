@@ -1,8 +1,8 @@
 import { type NavigateToUrlFn } from '@/navigation/NavigationController';
-import { ProblemData } from './ProblemData';
+import { SuiteData } from '../../models/SuiteData';
 import { BaseView } from '@/base/BaseView';
 
-export class ProblemView extends BaseView {
+export class HomeView extends BaseView {
   protected container: HTMLElement;
 
   constructor() {
@@ -11,12 +11,9 @@ export class ProblemView extends BaseView {
     this.container.id = 'problems';
   }
 
-  protected renderImpl(
-    problems: ProblemData[],
-    navigateToUrlFn: NavigateToUrlFn
-  ) {
+  protected renderImpl(suites: SuiteData[], navigateToUrlFn: NavigateToUrlFn) {
     this.clearContainer();
-    this.renderGrid(problems, navigateToUrlFn);
+    this.renderGrid(suites, navigateToUrlFn);
     this.appendContainerToDOM();
   }
 
@@ -24,25 +21,22 @@ export class ProblemView extends BaseView {
     this.container.innerHTML = '';
   }
 
-  private renderGrid(
-    problems: ProblemData[],
-    navigateToUrlFn: NavigateToUrlFn
-  ) {
+  private renderGrid(suites: SuiteData[], navigateToUrlFn: NavigateToUrlFn) {
     const cardContainer = document.createElement('div');
     cardContainer.classList.add('grid');
 
-    problems.forEach((problem) => {
+    suites.forEach((suite) => {
       const card = document.createElement('div');
       card.setAttribute('data-test', 'problem-card');
       card.classList.add('card');
       card.innerHTML = `
-                <h2 class="card__name">${problem.name}</h2>
-                <p class="card__description">${problem.longDescription}</p>
+                <h2 class="card__name">${suite.name}</h2>
+                <p class="card__description">${suite.longDescription}</p>
             `;
       cardContainer.appendChild(card);
     });
 
-    ProblemView.addCardClickHandler(cardContainer, navigateToUrlFn);
+    HomeView.addCardClickHandler(cardContainer, navigateToUrlFn);
 
     this.container.appendChild(cardContainer);
   }
@@ -73,4 +67,4 @@ export class ProblemView extends BaseView {
   }
 }
 
-export default new ProblemView();
+export default new HomeView();

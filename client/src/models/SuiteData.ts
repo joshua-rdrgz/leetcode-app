@@ -1,4 +1,4 @@
-export interface ProblemData {
+export interface SuiteData {
   name: string;
   shortDescription: string;
   longDescription: string;

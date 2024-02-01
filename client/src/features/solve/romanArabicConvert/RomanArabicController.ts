@@ -1,12 +1,12 @@
 import { BaseController } from '@/base/BaseController';
-import { ProblemData } from '@/features/problems/ProblemData';
+import { SuiteData } from '@/models/SuiteData';
 import { RomanArabicModel } from './RomanArabicModel';
 
 export class RomanArabicController extends BaseController {
   model = new RomanArabicModel();
 
-  async initialize(problemData: ProblemData) {
-    const endpoints = await this.model.getEndpoints(problemData);
+  async initialize(suiteData: SuiteData) {
+    const endpoints = await this.model.getEndpoints(suiteData);
     console.log('init endpoints: ', endpoints);
   }
 }

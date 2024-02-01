@@ -1,5 +1,5 @@
 import Navigo, { type Match } from 'navigo';
-import { problemsPageInit } from '@/features/problems';
+import { homePageInit } from '@/features/home';
 import { solvePageInit } from '@/features/solve';
 
 export class NavigationController {
@@ -10,7 +10,7 @@ export class NavigationController {
       .on({
         // ** HOME PAGE **
         '/': () => {
-          problemsPageInit();
+          homePageInit();
         },
         // ** SOLVE PAGE **
         '/problem/:solvePage': (match: Match) => {

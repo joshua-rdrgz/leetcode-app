@@ -1,6 +1,6 @@
-import { ProblemView } from '../ProblemView';
+import { HomeView } from '../HomeView';
 
-export class TestProblemView extends ProblemView {
+export class TestHomeView extends HomeView {
   constructor() {
     super();
   }

@@ -1,29 +1,27 @@
-import { type ProblemData } from '@/features/problems/ProblemData';
-import { type EndpointsData } from '@/features/solve/EndpointsData';
+import { type SuiteData } from '@/models/SuiteData';
+import { type EndpointData } from '@/models/EndpointData';
 
 class APICache {
-  private problems: ProblemData[] = [];
-  private endpoints: { [key: string]: EndpointsData[] } = {};
+  private suites: SuiteData[] = [];
+  private endpoints: { [key: string]: EndpointData[] } = {};
 
-  getProblems(): ProblemData[] {
-    return this.problems;
+  getSuites(): SuiteData[] {
+    return this.suites;
   }
 
-  getProblemByName(name: string): ProblemData | undefined {
-    return this.problems.find(
-      (p) => p.name.toLowerCase() === name.toLowerCase()
-    );
+  getSuiteByName(name: string): SuiteData | undefined {
+    return this.suites.find((p) => p.name.toLowerCase() === name.toLowerCase());
   }
 
-  setProblems(problems: ProblemData[]): void {
-    this.problems = problems;
+  setSuites(suites: SuiteData[]): void {
+    this.suites = suites;
   }
 
-  getEndpoints(endpoint: string): EndpointsData[] | undefined {
+  getEndpoints(endpoint: string): EndpointData[] | undefined {
     return this.endpoints[endpoint];
   }
 
-  setEndpoints(endpoint: string, endpoints: EndpointsData[]): void {
+  setEndpoints(endpoint: string, endpoints: EndpointData[]): void {
     this.endpoints[endpoint] = endpoints;
   }
 }

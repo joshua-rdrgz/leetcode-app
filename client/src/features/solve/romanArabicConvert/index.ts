@@ -1,7 +1,7 @@
-import { ProblemData } from '@/features/problems/ProblemData';
+import { SuiteData } from '@/models/SuiteData';
 import { RomanArabicController } from './RomanArabicController';
 
-export async function romanArabicConvertInit(problemData: ProblemData) {
+export async function romanArabicConvertInit(suiteData: SuiteData) {
   const controller = new RomanArabicController();
-  controller.initialize(problemData);
+  controller.initialize(suiteData);
 }

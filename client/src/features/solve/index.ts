@@ -3,15 +3,15 @@ import apiCache from '@/api/cache';
 import { romanArabicConvertInit } from '@/features/solve/romanArabicConvert';
 
 export function solvePageInit(match: Match) {
-  const problemData = apiCache.getProblemByName(match.data!.solvePage);
+  const suite = apiCache.getSuiteByName(match.data!.solvePage);
 
-  if (!problemData) {
+  if (!suite) {
     throw new Error('Problem not found');
   }
 
-  switch (problemData.name) {
+  switch (suite.name) {
     case 'Roman/Arabic Numeral Converter':
-      romanArabicConvertInit(problemData);
+      romanArabicConvertInit(suite);
       break;
     default:
       throw new Error('This page does not exist.');
