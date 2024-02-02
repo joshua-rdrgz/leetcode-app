@@ -16,6 +16,14 @@ export class NavigationController {
         '/problem/:solvePage': (match: Match) => {
           solvePageInit(match);
         },
+        '/page-not-found': () => {
+          console.log('not found page');
+          // TODO: implement NotFound MVC
+        },
+      })
+      .notFound((match: Match) => {
+        console.log('path not found: ', match.url);
+        this.router.navigate('/page-not-found');
       })
       .resolve();
   }
