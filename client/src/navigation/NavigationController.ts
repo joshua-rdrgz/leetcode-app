@@ -20,10 +20,6 @@ export class NavigationController {
       .resolve();
   }
 
-  static navigateToHome() {
-    this.router.navigate('/');
-  }
-
   static navigateToUrl(url: string) {
     this.router.navigate(url);
   }

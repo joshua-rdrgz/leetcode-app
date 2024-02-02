@@ -63,7 +63,7 @@ export class HomeView extends BaseView {
   }
 
   private appendContainerToDOM() {
-    this.rootElement.appendChild(this.container);
+    BaseView.rootElement.appendChild(this.container);
   }
 }
 

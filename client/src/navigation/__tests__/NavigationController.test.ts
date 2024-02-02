@@ -1,13 +1,15 @@
+import { TestBaseView } from '@/base/testClasses/TestBaseView';
 import { NavigationController } from '@/navigation/NavigationController';
 import { TestNavigationController } from '@/navigation/testClasses/TestNavigationController';
 
 describe('NavigationController', () => {
-  // beforeAll(() => {
-  //   const rootElement = document.createElement('div');
-  //   rootElement.id = 'root';
+  beforeAll(() => {
+    TestBaseView.setupTestDOM();
+  });
 
-  //   document.appendChild(rootElement);
-  // });
+  afterAll(() => {
+    TestBaseView.teardownTestDOM();
+  });
 
   describe('initialize()', () => {
     it('should set up routes on the Navigo router', () => {
@@ -29,17 +31,6 @@ describe('NavigationController', () => {
       NavigationController.initialize();
 
       expect(resolveSpy).toHaveBeenCalled();
-    });
-  });
-
-  describe('navigateToHome()', () => {
-    it('should call router.navigate("/")', () => {
-      const router = TestNavigationController.getRouter();
-      const navigateSpy = jest.spyOn(router, 'navigate');
-
-      NavigationController.navigateToHome();
-
-      expect(navigateSpy).toHaveBeenCalledWith('/');
     });
   });
 });

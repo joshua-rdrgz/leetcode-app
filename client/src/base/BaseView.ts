@@ -1,18 +1,14 @@
 export abstract class BaseView {
-  protected rootElement: HTMLElement;
-
-  constructor() {
-    this.rootElement = document.getElementById('root')!; // defined in `index.html`
-  }
+  protected static rootElement = document.getElementById('root')!;
 
   render(...args: any[]) {
-    this.clearDOM();
+    BaseView.clearDOM();
     this.renderImpl(...args);
   }
 
   protected abstract renderImpl(...args: any[]): void;
 
-  protected clearDOM() {
-    this.rootElement.innerHTML = '';
+  protected static clearDOM() {
+    BaseView.rootElement.innerHTML = '';
   }
 }
