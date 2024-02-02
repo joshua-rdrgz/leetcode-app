@@ -1,7 +1,7 @@
 import { type SuiteData } from '@/models/SuiteData';
 import { type EndpointData } from '@/models/EndpointData';
 
-class APICache {
+export class APICache {
   private suites: SuiteData[] = [];
   private endpoints: { [key: string]: EndpointData[] } = {};
 
