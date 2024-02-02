@@ -1,6 +1,6 @@
 import Navigo, { type Match } from 'navigo';
-import { homePageInit } from '@/features/home';
-import { solvePageInit } from '@/features/solve';
+import { homePageInit } from '@/pages/home';
+import { solvePageInit } from '@/pages/problem';
 
 export class NavigationController {
   protected static router: Navigo = new Navigo('/');

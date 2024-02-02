@@ -1,6 +1,6 @@
 import { Match } from 'navigo';
 import apiCache from '@/api/cache';
-import { romanArabicConvertInit } from '@/features/solve/romanArabicConvert';
+import { romanArabicConvertInit } from '@/pages/problem/romanArabicConvert';
 
 export function solvePageInit(match: Match) {
   const suite = apiCache.getSuiteByName(match.data!.solvePage);

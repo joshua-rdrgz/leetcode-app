@@ -1,6 +1,6 @@
 import { BaseController } from '@/base/BaseController';
-import { type HomeModel } from '@/features/home/HomeModel';
-import { type HomeView } from '@/features/home/HomeView';
+import { type HomeModel } from '@/pages/home/HomeModel';
+import { type HomeView } from '@/pages/home/HomeView';
 
 export class HomeController extends BaseController {
   private model: HomeModel;
