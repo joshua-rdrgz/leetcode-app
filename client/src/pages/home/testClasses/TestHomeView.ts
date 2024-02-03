@@ -9,7 +9,7 @@ export class TestHomeView extends HomeView {
     this.container = container;
   }
 
-  clearContainerTest() {
+  clearContainer() {
     super.clearContainer();
   }
 }

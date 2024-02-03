@@ -1,5 +1,5 @@
 import { type NavigateToUrlFn } from '@/navigation/NavigationController';
-import { SuiteData } from '../../models/SuiteData';
+import { SuiteData } from '@/models/SuiteData';
 import { BaseView } from '@/base/BaseView';
 
 export class HomeView extends BaseView {
@@ -26,7 +26,7 @@ export class HomeView extends BaseView {
     cardContainer.classList.add('grid');
 
     suites.forEach((suite) => {
-      const card = document.createElement('div');
+      const card = document.createElement('section');
       card.setAttribute('data-test', 'problem-card');
       card.classList.add('card');
       card.innerHTML = `
