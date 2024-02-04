@@ -1,4 +1,4 @@
-package com.leetcodesolver.server.problems;
+package com.leetcodesolver.server.suites;
 
 import com.leetcodesolver.server.annotations.LeetCodeSuiteInfo;
 import org.reflections.Reflections;
@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/v1/leetcode/problems")
-public class ProblemsController {
+@RequestMapping("/api/v1/leetcode/suites")
+public class SuitesController {
 
     String SOLVE_PACKAGE = "com.leetcodesolver.server.solve";
 
@@ -24,8 +24,8 @@ public class ProblemsController {
             .setScanners(Scanners.SubTypes, Scanners.TypesAnnotated));
 
     @GetMapping
-    public ProblemsResponse getLeetCodeSuites() {
-        List<ProblemsResponse.ProblemsData> problemsData = new ArrayList<>();
+    public SuitesResponse getLeetCodeSuites() {
+        List<SuitesResponse.SuitesData> problemsData = new ArrayList<>();
 
         Set<Class<?>> controllerClasses = reflections.getTypesAnnotatedWith(LeetCodeSuiteInfo.class);
         for (Class<?> controllerClass : controllerClasses) {
@@ -36,14 +36,14 @@ public class ProblemsController {
 
             LeetCodeSuiteInfo suiteInfo = controllerClass.getAnnotation(LeetCodeSuiteInfo.class);
 
-            problemsData.add(new ProblemsResponse.ProblemsData(
+            problemsData.add(new SuitesResponse.SuitesData(
                     suiteInfo.name(),
                     suiteInfo.shortDescription(),
                     suiteInfo.longDescription(),
                     suiteInfo.endpoint()));
         }
 
-        return new ProblemsResponse(problemsData);
+        return new SuitesResponse(problemsData);
     }
 
 }

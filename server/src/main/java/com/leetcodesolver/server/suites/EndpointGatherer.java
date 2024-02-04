@@ -1,7 +1,7 @@
-package com.leetcodesolver.server.problems;
+package com.leetcodesolver.server.suites;
 
 import com.leetcodesolver.server.annotations.EndpointSummary;
-import com.leetcodesolver.server.problems.EndpointsResponse.EndpointsData;
+import com.leetcodesolver.server.suites.EndpointsResponse.EndpointsData;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

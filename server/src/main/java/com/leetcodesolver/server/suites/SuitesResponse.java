@@ -1,4 +1,4 @@
-package com.leetcodesolver.server.problems;
+package com.leetcodesolver.server.suites;
 
 import com.leetcodesolver.server.responses.SuccessResponse;
 import lombok.Data;
@@ -6,22 +6,22 @@ import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
-public class ProblemsResponse
-        extends SuccessResponse<List<ProblemsResponse.ProblemsData>> {
+public class SuitesResponse
+        extends SuccessResponse<List<SuitesResponse.SuitesData>> {
 
-    public ProblemsResponse(List<ProblemsData> data) {
+    public SuitesResponse(List<SuitesData> data) {
         super(data, HttpStatus.OK.value());
     }
 
     @Data
-    public static class ProblemsData {
+    public static class SuitesData {
 
         private String name;
         private String shortDescription;
         private String longDescription;
         private String endpoint;
 
-        public ProblemsData(
+        public SuitesData(
                 String name,
                 String shortDescription,
                 String longDescription,

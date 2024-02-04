@@ -2,9 +2,9 @@ package com.leetcodesolver.server.solve.romanarabicconvert;
 
 import com.leetcodesolver.server.annotations.EndpointSummary;
 import com.leetcodesolver.server.annotations.LeetCodeSuiteInfo;
-import com.leetcodesolver.server.problems.EndpointGatherer;
-import com.leetcodesolver.server.problems.EndpointsResponse;
 import com.leetcodesolver.server.solve.romanarabicconvert.response.RomanArabicResponse;
+import com.leetcodesolver.server.suites.EndpointGatherer;
+import com.leetcodesolver.server.suites.EndpointsResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

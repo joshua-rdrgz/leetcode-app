@@ -1,6 +1,8 @@
-package com.leetcodesolver.server.problems;
+package com.leetcodesolver.server.suites;
 
 import com.leetcodesolver.server.annotations.EndpointSummary;
+import com.leetcodesolver.server.suites.EndpointGatherer;
+import com.leetcodesolver.server.suites.EndpointsResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

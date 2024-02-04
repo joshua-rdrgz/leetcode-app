@@ -8,7 +8,7 @@ async function initializeApp() {
 }
 
 async function gatherLeetCodeSuites() {
-  const data = await request.get('/api/v1/leetcode/problems');
+  const data = await request.get('/api/v1/leetcode/suites');
   apiCache.setSuites(data?.data || []);
 }
 

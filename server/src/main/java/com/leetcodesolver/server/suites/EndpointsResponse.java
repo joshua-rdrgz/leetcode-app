@@ -1,4 +1,4 @@
-package com.leetcodesolver.server.problems;
+package com.leetcodesolver.server.suites;
 
 import com.leetcodesolver.server.responses.SuccessResponse;
 import lombok.Data;
