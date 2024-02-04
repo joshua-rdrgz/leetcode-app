@@ -11,3 +11,5 @@ export class RomanArabicModel {
     return response.data;
   }
 }
+
+export default new RomanArabicModel();

@@ -3,7 +3,12 @@ import { SuiteData } from '@/models/SuiteData';
 import { RomanArabicModel } from './RomanArabicModel';
 
 export class RomanArabicController extends BaseController {
-  model = new RomanArabicModel();
+  protected model: RomanArabicModel;
+
+  constructor(model: RomanArabicModel) {
+    super();
+    this.model = model;
+  }
 
   async initialize(suiteData: SuiteData) {
     const endpoints = await this.model.getEndpoints(suiteData);
