@@ -25,7 +25,7 @@ public class SuitesController {
 
     @GetMapping
     public SuitesResponse getLeetCodeSuites() {
-        List<SuitesResponse.SuitesData> problemsData = new ArrayList<>();
+        List<SuitesResponse.SuitesData> suitesData = new ArrayList<>();
 
         Set<Class<?>> controllerClasses = reflections.getTypesAnnotatedWith(LeetCodeSuiteInfo.class);
         for (Class<?> controllerClass : controllerClasses) {
@@ -36,14 +36,14 @@ public class SuitesController {
 
             LeetCodeSuiteInfo suiteInfo = controllerClass.getAnnotation(LeetCodeSuiteInfo.class);
 
-            problemsData.add(new SuitesResponse.SuitesData(
+            suitesData.add(new SuitesResponse.SuitesData(
                     suiteInfo.name(),
                     suiteInfo.shortDescription(),
                     suiteInfo.longDescription(),
                     suiteInfo.endpoint()));
         }
 
-        return new SuitesResponse(problemsData);
+        return new SuitesResponse(suitesData);
     }
 
 }
