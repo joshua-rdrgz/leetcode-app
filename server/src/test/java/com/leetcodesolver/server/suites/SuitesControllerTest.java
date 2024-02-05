@@ -2,9 +2,13 @@ package com.leetcodesolver.server.suites;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -41,5 +45,23 @@ public class SuitesControllerTest {
     public void testGetLeetCodeSuites_FiltersOutNonControllersAndNonSolvePackages() {
         SuitesResponse response = suitesController.getLeetCodeSuites();
         assertEquals(2, response.getData().size());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "/endpoint/1",
+            "/endpoint/2"
+    })
+    public void testGetLeetCodeSuites_DeterminesEndpointFromAnnotations(String expectedEndpoint) {
+
+        SuitesResponse response = suitesController.getLeetCodeSuites();
+
+        int index = response.getData().stream()
+                .map(SuitesResponse.SuitesData::getEndpoint)
+                .collect(Collectors.toList())
+                .indexOf(expectedEndpoint);
+
+        assertEquals(expectedEndpoint, response.getData().get(index).getEndpoint());
+
     }
 }
