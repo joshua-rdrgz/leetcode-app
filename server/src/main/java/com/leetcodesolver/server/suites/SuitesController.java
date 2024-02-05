@@ -36,11 +36,18 @@ public class SuitesController {
 
             LeetCodeSuiteInfo suiteInfo = controllerClass.getAnnotation(LeetCodeSuiteInfo.class);
 
+            // Look at `@RequestMapping` for endpoint default value
+            String endpoint = suiteInfo.endpoint();
+            if (endpoint.isEmpty()) {
+                RequestMapping requestMapping = controllerClass.getAnnotation(RequestMapping.class);
+                endpoint = requestMapping.value()[0];
+            }
+
             suitesData.add(new SuitesResponse.SuitesData(
                     suiteInfo.name(),
                     suiteInfo.shortDescription(),
                     suiteInfo.longDescription(),
-                    suiteInfo.endpoint()));
+                    endpoint));
         }
 
         return new SuitesResponse(suitesData);
