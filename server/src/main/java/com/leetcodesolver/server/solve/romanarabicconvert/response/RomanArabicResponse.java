@@ -14,12 +14,12 @@ public class RomanArabicResponse
     @Data
     public static class RomanArabicData {
         private String romanNumeral;
-        private int number;
+        private int arabicNumeral;
         private boolean foundInDB;
 
-        public RomanArabicData(String romanNumeral, int number, boolean foundInDB) {
+        public RomanArabicData(String romanNumeral, int arabicNumeral, boolean foundInDB) {
             this.romanNumeral = romanNumeral;
-            this.number = number;
+            this.arabicNumeral = arabicNumeral;
             this.foundInDB = foundInDB;
         }
 

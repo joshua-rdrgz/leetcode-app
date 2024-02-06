@@ -52,7 +52,7 @@ public class RomanArabicServiceE2ETest {
                 .andExpect(jsonPath("$.status", equalTo("success")))
                 .andExpect(jsonPath("$.statusCode", equalTo(200)))
                 .andExpect(jsonPath("$.data.romanNumeral", equalTo(inputIsArabic ? expected : given)))
-                .andExpect(jsonPath("$.data.number", equalTo(inputIsArabic ? given : expected)));
+                .andExpect(jsonPath("$.data.arabicNumeral", equalTo(inputIsArabic ? given : expected)));
     }
 
     @ParameterizedTest
@@ -108,7 +108,7 @@ public class RomanArabicServiceE2ETest {
         mockMvc.perform(get("/api/v1/leetcode/solve/roman-arabic-convert/" +
                 mixedCaseRoman))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.number", equalTo(expectedNumber)))
+                .andExpect(jsonPath("$.data.arabicNumeral", equalTo(expectedNumber)))
                 .andExpect(jsonPath("$.data.romanNumeral",
                         equalTo(mixedCaseRoman.toUpperCase())));
     }
