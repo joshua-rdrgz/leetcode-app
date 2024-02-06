@@ -14,7 +14,7 @@ export class HomeView extends BaseView {
   protected renderImpl(suites: SuiteData[], navigateToUrlFn: NavigateToUrlFn) {
     this.clearContainer();
     this.renderGrid(suites, navigateToUrlFn);
-    this.appendContainerToDOM();
+    super.appendContainerToDOM(this.container);
   }
 
   protected clearContainer() {
@@ -60,10 +60,6 @@ export class HomeView extends BaseView {
         navigateToUrlFn(cardName);
       }
     });
-  }
-
-  private appendContainerToDOM() {
-    BaseView.rootElement.appendChild(this.container);
   }
 }
 

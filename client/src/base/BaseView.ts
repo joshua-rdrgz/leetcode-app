@@ -11,4 +11,8 @@ export abstract class BaseView {
   protected static clearDOM() {
     BaseView.rootElement.innerHTML = '';
   }
+
+  protected appendContainerToDOM(container: HTMLElement) {
+    BaseView.rootElement.appendChild(container);
+  }
 }
