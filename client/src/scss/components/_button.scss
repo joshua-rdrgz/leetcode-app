@@ -1,0 +1,11 @@
+.btn {
+  font-size: $size-4;
+  padding: $size-0-and-half $size-1-and-half;
+  border: none;
+  border-radius: $size-1;
+  outline-color: $color-amber-900;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

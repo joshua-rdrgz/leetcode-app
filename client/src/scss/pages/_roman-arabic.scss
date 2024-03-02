@@ -1,0 +1,54 @@
+.roman-arabic {
+  @include flex-col-center;
+  gap: $size-5;
+  margin: $size-4;
+  color: $color-neutral-100;
+
+  &__heading-container {
+    @include flex-col-center;
+    gap: $size-2;
+    padding-bottom: $size-2;
+  }
+
+  &__heading {
+    font-size: $size-8;
+  }
+
+  &__paragraph {
+    color: $color-neutral-200;
+    font-size: $size-4;
+  }
+
+  &__input-container {
+    @include flex-col-center;
+    gap: $size-2-and-half;
+    margin: 0 auto;
+    max-width: min-content;
+  }
+
+  &__label {
+    color: $color-neutral-300;
+    font-size: $size-3-and-half;
+    align-self: flex-start;
+  }
+
+  &__input {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: $size-7;
+    text-align: center;
+    outline-color: $color-amber-900;
+    padding: $size-1;
+  }
+
+  &__btn-container {
+    display: flex;
+    gap: $size-2;
+  }
+
+  &__btn {
+    background-color: $color-amber-400;
+    color: $color-neutral-950;
+    font-size: $size-6;
+    padding: $size-1-and-half $size-2-and-half;
+  }
+}

@@ -1,5 +1,81 @@
-$neutral-900: #efefef;
-$neutral-700: #999;
-$neutral-500: #555;
-$neutral-300: #333;
-$neutral-100: #101010;
+// **********
+// COLORS
+// **********
+
+// NEUTRAL SHADES
+$color-neutral-50: #fafafa;
+$color-neutral-100: #f5f5f5;
+$color-neutral-200: #e5e5e5;
+$color-neutral-300: #d4d4d4;
+$color-neutral-400: #a3a3a3;
+$color-neutral-500: #737373;
+$color-neutral-600: #525252;
+$color-neutral-700: #404040;
+$color-neutral-800: #262626;
+$color-neutral-900: #171717;
+$color-neutral-950: #0a0a0a;
+
+// AMBER SHADES
+$color-amber-50: #fffbeb;
+$color-amber-100: #fef3c7;
+$color-amber-200: #fde68a;
+$color-amber-300: #fcd34d;
+$color-amber-400: #fbbf24;
+$color-amber-500: #f59e0b;
+$color-amber-600: #d97706;
+$color-amber-700: #b45309;
+$color-amber-800: #92400e;
+$color-amber-900: #78350f;
+$color-amber-950: #451a03;
+
+// MESSAGE COLORS
+$color-error: #dc2626;
+$color-success: #22c55e;
+
+// **********
+// SPACING / SIZE - 1rem = 10px
+// **********
+
+$size-px: 1px;
+$size-0-and-half: 0.2rem;
+$size-1: 0.4rem;
+$size-1-and-half: 0.6rem;
+$size-2: 0.8rem;
+$size-2-and-half: 1rem;
+$size-3: 1.2rem;
+$size-3-and-half: 1.4rem;
+$size-4: 1.6rem;
+$size-5: 2rem;
+$size-6: 2.4rem;
+$size-7: 2.8rem;
+$size-8: 3.2rem;
+$size-9: 3.6rem;
+$size-10: 4rem;
+$size-11: 4.4rem;
+$size-12: 4.8rem;
+$size-14: 5.6rem;
+$size-16: 6.4rem;
+$size-20: 8rem;
+$size-24: 9.6rem;
+$size-28: 11.2rem;
+$size-32: 12.8rem;
+$size-36: 14.4rem;
+$size-40: 16rem;
+$size-44: 17.6rem;
+$size-48: 19.2rem;
+$size-52: 20.8rem;
+$size-56: 22.4rem;
+$size-60: 24rem;
+$size-64: 25.6rem;
+$size-72: 28.8rem;
+$size-80: 32rem;
+$size-96: 38.4rem;
+
+// **********
+// MISC
+// **********
+
+// Taken from Tailwind
+$box-shadow: 0 2px 4px #00000014, 0 4px 8px #00000014, 0 6px 12px #00000014,
+  0 0 #0000, 0 0 #0000, 0px 2px 4px #00000014, 0px 4px 8px #00000014,
+  0px 6px 12px #00000014;

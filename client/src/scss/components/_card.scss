@@ -1,20 +1,17 @@
 .card {
-  background-color: $neutral-900;
-  border-radius: 5px;
-  border: 1px solid $neutral-700;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
+  background-color: $color-neutral-700;
+  border-radius: $size-2-and-half;
+  box-shadow: $box-shadow;
+  padding: $size-3-and-half;
   text-align: center;
+  border: $size-px solid $color-amber-950;
 
   &__name {
-    margin-bottom: 0.5rem;
     font-weight: bold;
-    color: $neutral-300;
+    color: $color-neutral-100;
   }
 
   &__description {
-    color: $neutral-500;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    color: $color-neutral-200;
   }
 }
