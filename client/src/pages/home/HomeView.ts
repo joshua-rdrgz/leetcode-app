@@ -29,10 +29,17 @@ export class HomeView extends BaseView {
       const card = document.createElement('section');
       card.setAttribute('data-test', 'problem-card');
       card.classList.add('card');
-      card.innerHTML = `
-                <h2 class="card__name">${suite.name}</h2>
-                <p class="card__description">${suite.longDescription}</p>
-            `;
+
+      const h2Tag = document.createElement('h2');
+      h2Tag.classList.add('heading', 'card__name');
+      h2Tag.textContent = suite.name;
+      card.appendChild(h2Tag);
+
+      const pTag = document.createElement('p');
+      pTag.classList.add('paragraph', 'card__description');
+      pTag.textContent = suite.longDescription;
+      card.appendChild(pTag);
+
       cardContainer.appendChild(card);
     });
 
