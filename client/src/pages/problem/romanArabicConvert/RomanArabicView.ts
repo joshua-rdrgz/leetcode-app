@@ -1,12 +1,7 @@
 import request, { type HTTPMethod } from '@/api/request';
 import { BaseView } from '@/base/BaseView';
 import { EndpointData } from '@/models/EndpointData';
-
-interface ConversionResult {
-  romanNumeral: string;
-  arabicNumeral: number;
-  foundInDB: boolean;
-}
+import { ConversionResult } from '@/models/romanArabicConvert/ConversionResult';
 
 export class RomanArabicView extends BaseView {
   protected romanArabicSectionTag: HTMLElement;
