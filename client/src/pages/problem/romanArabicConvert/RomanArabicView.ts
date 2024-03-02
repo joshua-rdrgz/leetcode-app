@@ -26,10 +26,12 @@ export class RomanArabicView extends BaseView {
   }
 
   protected renderImpl(endpointData: EndpointData[]) {
-    const pageName = endpointData[0].name;
-    const pageDescription = endpointData[0].description;
-    const convertEndpoint = endpointData[0].endpoint;
-    const flushEndpoint = endpointData[1].endpoint;
+    const conversionData = endpointData.find((endpoint) =>
+      endpoint.name.toLowerCase().includes('conversion')
+    )!;
+    const flushData = endpointData.find((endpoint) =>
+      endpoint.name.toLowerCase().includes('flush')
+    )!;
 
     this.resetSectionContainerHTML();
 
@@ -37,8 +39,8 @@ export class RomanArabicView extends BaseView {
     // to place correctly in DOM
     // the render methods `prepend` elements,
     // not `append` or `appendChild` them
-    this.renderConversionUI(convertEndpoint, flushEndpoint);
-    this.renderHeader(pageName, pageDescription);
+    this.renderConversionUI(conversionData.endpoint, flushData.endpoint);
+    this.renderHeader(conversionData.name, conversionData.description);
 
     // Append Table Container to Section Container
     this.romanArabicSectionTag.appendChild(this.tableContainer);
