@@ -1,17 +1,30 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import catchAxiosAsync from '../catchAxiosAsync';
+import { Toast } from '@/ui/toast';
+
+function setToastContainer(container: HTMLElement) {
+  (Toast as any).container = container;
+}
 
 describe('catchAxiosAsync.ts', () => {
   let mock: MockAdapter;
+  let container: HTMLDivElement;
 
   beforeEach(() => {
     mock = new MockAdapter(axios);
+
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    document.body.appendChild(container);
+    setToastContainer(container);
   });
 
   afterEach(() => {
     mock.restore();
     jest.clearAllMocks();
+
+    document.body.removeChild(container);
   });
 
   it('should return response data on success', async () => {

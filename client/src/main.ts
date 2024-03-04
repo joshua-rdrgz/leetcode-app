@@ -1,6 +1,6 @@
 import request from '@/api/request';
 import apiCache from '@/api/cache';
-import { NavigationController } from './navigation/NavigationController';
+import { NavigationController } from '@/navigation/NavigationController';
 
 async function initializeApp() {
   await gatherLeetCodeSuites();
@@ -8,7 +8,10 @@ async function initializeApp() {
 }
 
 async function gatherLeetCodeSuites() {
-  const data = await request.get('/api/v1/leetcode/suites');
+  const data = await request.get('/api/v1/leetcode/suites', {
+    toastSuccessResult: false,
+    logSuccessResult: false,
+  });
   apiCache.setSuites(data?.data || []);
 }
 

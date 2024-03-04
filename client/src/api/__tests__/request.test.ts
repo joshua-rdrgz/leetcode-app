@@ -25,7 +25,10 @@ describe('request.ts', () => {
 
       await request.get(url);
 
-      expect(catchAxiosAsync).toHaveBeenCalledWith(expect.any(Function));
+      expect(catchAxiosAsync).toHaveBeenCalledWith(
+        expect.any(Function),
+        expect.any(Object)
+      );
     });
   });
 });

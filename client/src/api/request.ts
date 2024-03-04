@@ -1,9 +1,11 @@
 import axios from 'axios';
-import catchAxiosAsync from '@/api/catchAxiosAsync';
+import catchAxiosAsync, { CatchAxiosAsyncOptions } from '@/api/catchAxiosAsync';
 
 const request = {
-  get: (url: string) => catchAxiosAsync(async () => await axios.get(url)),
-  delete: (url: string) => catchAxiosAsync(async () => await axios.delete(url)),
+  get: (url: string, options: CatchAxiosAsyncOptions = {}) =>
+    catchAxiosAsync(async () => await axios.get(url), options),
+  delete: (url: string, options: CatchAxiosAsyncOptions = {}) =>
+    catchAxiosAsync(async () => await axios.delete(url), options),
 };
 
 export type RequestObj = typeof request;
