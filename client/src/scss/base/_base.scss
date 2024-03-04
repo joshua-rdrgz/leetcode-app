@@ -8,6 +8,7 @@
 
 html {
   font-size: 62.5%;
+  height: 100%;
 }
 
 body {
@@ -16,4 +17,8 @@ body {
   line-height: 1.7;
   background-color: $color-neutral-900;
   box-sizing: border-box;
+
+  // for .toast__container
+  position: relative;
+  height: 100%;
 }

@@ -1,0 +1,63 @@
+.toast {
+  color: $color-neutral-100;
+  background-color: $color-neutral-700;
+  max-width: $size-60;
+  font-size: $size-3-and-half;
+  text-align: center;
+  padding: $size-1-and-half;
+  border-radius: $size-1;
+  box-shadow: $box-shadow;
+  display: flex;
+  gap: $size-2;
+  animation: fadeIn 300ms;
+
+  &--done {
+    animation: fadeOut 200ms;
+  }
+
+  &--success {
+    background-color: $color-success;
+  }
+
+  &--error {
+    background-color: $color-error;
+  }
+
+  &--info {
+    background-color: $color-info;
+  }
+
+  &--warning {
+    background-color: $color-amber-500;
+  }
+
+  &__container {
+    position: absolute;
+    bottom: $size-16;
+    right: $size-16;
+
+    @include flex-col-center;
+    align-items: end;
+    gap: $size-2;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
