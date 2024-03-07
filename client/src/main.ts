@@ -1,10 +1,10 @@
 import request from '@/api/request';
 import apiCache from '@/api/cache';
-import { NavigationController } from '@/navigation/NavigationController';
+import { navigation } from './navigation';
 
 async function initializeApp() {
   await gatherLeetCodeSuites();
-  NavigationController.initialize();
+  navigation.initialize();
 }
 
 async function gatherLeetCodeSuites() {
