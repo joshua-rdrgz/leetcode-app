@@ -1,6 +1,6 @@
-import { type NavigateToUrlFn } from '@/navigation/NavigationController';
 import { SuiteData } from '@/models/SuiteData';
 import { BaseView } from '@/base/BaseView';
+import { NavigateToUrlFn } from '@/navigation/NavController';
 
 export class HomeView extends BaseView {
   protected container: HTMLElement;

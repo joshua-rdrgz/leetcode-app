@@ -1,6 +1,6 @@
 import { SuiteData } from '@/models/SuiteData';
 import { TestHomeView } from '../testClasses/TestHomeView';
-import { NavigateToUrlFn } from '@/navigation/NavigationController';
+import { NavigateToUrlFn } from '@/navigation/NavController';
 import { TestBaseView } from '@/base/testClasses/TestBaseView';
 
 describe('HomeView', () => {

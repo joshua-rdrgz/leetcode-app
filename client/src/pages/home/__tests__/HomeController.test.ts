@@ -1,6 +1,7 @@
 import { TestBaseView } from '@/base/testClasses/TestBaseView';
 import { SuiteData } from '@/models/SuiteData';
-import { TestNavigationController } from '@/navigation/testClasses/TestNavigationController';
+import { testNavigation } from '@/navigation';
+import { TestNavController } from '@/navigation/testClasses/TestNavController';
 import { HomeController } from '@/pages/home/HomeController';
 import { TestHomeModel } from '@/pages/home/testClasses/TestHomeModel';
 import { TestHomeView } from '@/pages/home/testClasses/TestHomeView';
@@ -20,9 +21,10 @@ const suiteData: SuiteData[] = [
   },
 ];
 
-describe('ProblemController', () => {
+describe('HomeController', () => {
   let controller: HomeController;
   let container: HTMLDivElement;
+  let testNavController: TestNavController;
 
   const homeModel = new TestHomeModel();
   const homeView = new TestHomeView();
@@ -30,6 +32,7 @@ describe('ProblemController', () => {
   beforeEach(() => {
     // DOM setup
     TestBaseView.setupTestDOM();
+    testNavigation.setupNavDOM();
 
     // Clear mocks
     jest.clearAllMocks();
@@ -38,7 +41,8 @@ describe('ProblemController', () => {
     homeModel.setSuites(suiteData);
 
     // Controller instantiation
-    controller = new HomeController(homeModel, homeView);
+    controller = new HomeController(homeModel, homeView, testNavController);
+    testNavController = testNavigation.initialize();
 
     // Container injection
     container = document.createElement('div');
@@ -48,6 +52,7 @@ describe('ProblemController', () => {
 
   afterEach(() => {
     TestBaseView.teardownTestDOM();
+    testNavController.teardownNavDOM();
     homeModel.clearSuitesData();
     homeView.clearContainer();
   });
@@ -65,7 +70,7 @@ describe('ProblemController', () => {
 
     it('handles card clicks and navigates to the correct URL', async () => {
       const routerNavigateSpy = jest.spyOn(
-        TestNavigationController.getRouter(),
+        testNavController.getRouter(),
         'navigate'
       );
       await controller.initialize();
