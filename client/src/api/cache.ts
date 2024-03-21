@@ -1,7 +1,8 @@
-import { type SuiteData } from '@/models/SuiteData';
+import { CacheProvider } from '@/models/CacheProvider';
 import { type EndpointData } from '@/models/EndpointData';
+import { type SuiteData } from '@/models/SuiteData';
 
-export class APICache {
+export class APICache implements CacheProvider {
   private suites: SuiteData[] = [];
   private endpoints: { [key: string]: EndpointData[] } = {};
 

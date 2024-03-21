@@ -15,6 +15,10 @@ export class RomanArabicController extends BaseController {
 
   async initialize(suiteData: SuiteData) {
     const endpoints = await this.model.getEndpoints(suiteData);
-    this.view.render(endpoints);
+    this.view.render(
+      endpoints,
+      this.model.onConvert.bind(this.model),
+      this.model.onFlushCache.bind(this.model)
+    );
   }
 }

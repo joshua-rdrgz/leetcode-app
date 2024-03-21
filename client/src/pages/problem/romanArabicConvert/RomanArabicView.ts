@@ -1,8 +1,9 @@
-import request, { type HTTPMethod } from '@/api/request';
+import { type HTTPMethod } from '@/api/request';
 import { BaseView } from '@/base/BaseView';
 import { EndpointData } from '@/models/EndpointData';
 import { ConversionResult } from '@/models/romanArabicConvert/ConversionResult';
 import { ColumnDef, Table } from '@/ui/table';
+import { OnConvertFn, OnFlushCacheFn } from './RomanArabicModel';
 
 export class RomanArabicView extends BaseView {
   protected romanArabicSectionTag: HTMLElement;
@@ -25,7 +26,11 @@ export class RomanArabicView extends BaseView {
     this.tableContainer.id = 'table-container';
   }
 
-  protected renderImpl(endpointData: EndpointData[]) {
+  protected renderImpl(
+    endpointData: EndpointData[],
+    onConvert: OnConvertFn,
+    onFlushCache: OnFlushCacheFn
+  ) {
     const conversionData = endpointData.find((endpoint) =>
       endpoint.name.toLowerCase().includes('conversion')
     )!;
@@ -39,7 +44,12 @@ export class RomanArabicView extends BaseView {
     // to place correctly in DOM
     // the render methods `prepend` elements,
     // not `append` or `appendChild` them
-    this.renderConversionUI(conversionData.endpoint, flushData.endpoint);
+    this.renderConversionUI(
+      conversionData.endpoint,
+      flushData.endpoint,
+      onConvert,
+      onFlushCache
+    );
     this.renderHeader(conversionData.name, conversionData.description);
 
     // Append Table Container to Section Container
@@ -73,7 +83,12 @@ export class RomanArabicView extends BaseView {
     this.romanArabicSectionTag.prepend(headingContainer);
   }
 
-  protected renderConversionUI(convertEndpoint: string, flushEndpoint: string) {
+  protected renderConversionUI(
+    convertEndpoint: string,
+    flushEndpoint: string,
+    onConvert: OnConvertFn,
+    onFlushCache: OnFlushCacheFn
+  ) {
     const inputContainer = document.createElement('div');
     inputContainer.classList.add('roman-arabic__input-container');
 
@@ -90,8 +105,12 @@ export class RomanArabicView extends BaseView {
     const btnsContainer = document.createElement('div');
     btnsContainer.classList.add('roman-arabic__btn-container');
 
-    const convertBtn = this.generateConvertBtn(convertEndpoint, inputTag);
-    const flushBtn = this.generateFlushBtn(flushEndpoint);
+    const convertBtn = this.generateConvertBtn(
+      convertEndpoint,
+      inputTag,
+      onConvert
+    );
+    const flushBtn = this.generateFlushBtn(flushEndpoint, onFlushCache);
 
     btnsContainer.appendChild(convertBtn);
     btnsContainer.appendChild(flushBtn);
@@ -105,7 +124,8 @@ export class RomanArabicView extends BaseView {
 
   private generateConvertBtn(
     convertEndpoint: string,
-    inputTag: HTMLInputElement
+    inputTag: HTMLInputElement,
+    onConvert: OnConvertFn
   ) {
     const [convertHttpMethod, convertUrl] =
       RomanArabicView.parseEndpoint(convertEndpoint);
@@ -118,16 +138,14 @@ export class RomanArabicView extends BaseView {
       'roman-arabic__btn--convert'
     );
     convertBtnTag.onclick = async () => {
-      const { data } = await request[convertHttpMethod](
-        convertUrl.replace('{romanOrArabic}', inputTag.value)
-      );
+      const data = await onConvert(convertHttpMethod, convertUrl, inputTag);
       this.renderResults(data);
     };
 
     return convertBtnTag;
   }
 
-  private generateFlushBtn(endpoint: string) {
+  private generateFlushBtn(endpoint: string, onFlushCache: OnFlushCacheFn) {
     const [method, url] = RomanArabicView.parseEndpoint(endpoint);
 
     const flushBtnTag = document.createElement('button');
@@ -138,8 +156,7 @@ export class RomanArabicView extends BaseView {
       'roman-arabic__btn--flush-cache'
     );
     flushBtnTag.onclick = async () => {
-      await request[method](url);
-      console.log('🗑️ Cache Flushed');
+      await onFlushCache(method, url);
 
       // Reset Table
       this.table?.deleteAllRows();
