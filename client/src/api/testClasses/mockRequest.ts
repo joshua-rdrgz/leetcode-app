@@ -4,8 +4,8 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 export class MockAxiosApiClient implements ApiClient {
-  private axiosInstance = axios.create();
-  private mockAdapter = new MockAdapter(this.axiosInstance);
+  public axiosInstance = axios.create();
+  public mockAdapter = new MockAdapter(this.axiosInstance);
 
   constructor(requestResponseData: { [key: string]: any }) {
     for (const [request, response] of Object.entries(requestResponseData)) {
