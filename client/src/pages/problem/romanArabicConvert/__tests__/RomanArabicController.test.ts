@@ -1,39 +1,11 @@
-import { createApiResponse } from '@/api/testClasses/createApiResponse';
 import { MockAxiosApiClient } from '@/api/testClasses/mockRequest';
 import { TestBaseView } from '@/base/testClasses/TestBaseView';
-import { SuiteData } from '@/models/SuiteData';
 import { MockCacheProvider } from '@/models/testClasses/MockCacheProvider';
 import { RomanArabicController } from '../RomanArabicController';
 import { RomanArabicModel } from '../RomanArabicModel';
 import { RomanArabicView } from '../RomanArabicView';
 import { findEndpointData } from '../__test-helpers__/findEndpointData';
-
-const suite: SuiteData = {
-  name: '...',
-  shortDescription: '...',
-  longDescription: '...',
-  endpoint: '/api/v1/leetcode/solve/roman-arabic-convert',
-};
-
-const requestResponseData: { [key: string]: any } = {
-  'GET /api/v1/leetcode/solve/roman-arabic-convert': createApiResponse(
-    'success',
-    200,
-    [
-      {
-        name: 'Roman Numeral Conversion Endpoint',
-        description: 'Converts between Roman and Arabic numerals',
-        endpoint:
-          'GET /api/v1/leetcode/solve/roman-arabic-convert/{romanOrArabic}',
-      },
-      {
-        name: 'Flush Cache Endpoint',
-        description: 'Flushes the cache',
-        endpoint: 'DELETE /api/v1/leetcode/solve/roman-arabic-convert/cache',
-      },
-    ]
-  ),
-};
+import { requestResponseData, suite } from '../__test-helpers__/testData';
 
 describe('RomanArabicController', () => {
   let endpointData: any;
