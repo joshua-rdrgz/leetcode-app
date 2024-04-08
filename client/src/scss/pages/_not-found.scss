@@ -1,0 +1,23 @@
+.not-found {
+  @include flex-col-center;
+  min-height: 100vh;
+  color: $color-neutral-100;
+
+  & .heading {
+    font-size: $size-10;
+  }
+
+  & .paragraph {
+    font-size: $size-6;
+  }
+
+  & a {
+    color: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-neutral-300;
+    }
+  }
+}

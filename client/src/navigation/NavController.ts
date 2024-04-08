@@ -1,10 +1,11 @@
-import Navigo, { Match } from 'navigo';
 import { BaseController } from '@/base/BaseController';
-import { NavModel } from '@/navigation/NavModel';
-import { homePageInit } from '@/pages/home';
-import { solvePageInit } from '@/pages/problem';
-import { NavView } from '@/navigation/NavView';
 import { Navigation } from '@/models/Navigation';
+import { NavModel } from '@/navigation/NavModel';
+import { NavView } from '@/navigation/NavView';
+import { homePageInit } from '@/pages/home';
+import { notFoundPageInit } from '@/pages/not-found';
+import { solvePageInit } from '@/pages/problem';
+import Navigo, { Match } from 'navigo';
 
 export class NavController extends BaseController implements Navigation {
   protected router: Navigo;
@@ -45,15 +46,18 @@ export class NavController extends BaseController implements Navigation {
         },
         '/page-not-found': {
           as: 'Not Found',
-          uses() {
-            console.log('not found page');
-            // TODO: implement NotFound MVC
+          uses(match: Match) {
+            const attemptedUrl = decodeURIComponent(
+              match.params?.attemptedUrl || ''
+            );
+            notFoundPageInit(attemptedUrl);
           },
         },
       })
       .notFound((match: Match) => {
-        console.log('path not found: ', match.url);
-        this.router.navigate('/page-not-found');
+        this.router.navigate(
+          `/page-not-found?attemptedUrl=${encodeURIComponent(match.url)}`
+        );
       })
       .resolve();
 
