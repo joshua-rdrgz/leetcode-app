@@ -20,13 +20,12 @@ export class NavController extends BaseController implements Navigation {
   }
 
   initialize() {
-    const handleBeforeHook = this.handleBeforeHook.bind(this);
+    const handleAfterHook = this.handleAfterHook.bind(this);
 
     this.router
       .hooks({
-        before(done, match) {
-          handleBeforeHook(match);
-          done();
+        after(match) {
+          handleAfterHook(match);
         },
       })
       .on({
@@ -55,8 +54,9 @@ export class NavController extends BaseController implements Navigation {
         },
       })
       .notFound((match: Match) => {
-        this.router.navigate(
-          `/page-not-found?attemptedUrl=${encodeURIComponent(match.url)}`
+        this.navigateToUrl(
+          `/page-not-found?attemptedUrl=${encodeURIComponent(match.url)}`,
+          true
         );
       })
       .resolve();
@@ -76,10 +76,14 @@ export class NavController extends BaseController implements Navigation {
     };
   }
 
-  protected handleBeforeHook(match: Match) {
+  protected handleAfterHook(match: Match) {
     const pageUrl = match.url.trim().length === 0 ? '/' : `/${match.url}`;
+
     if (!this.model.pageHistoryHandled) {
-      this.model.pushPageToHistory(match.route.name, pageUrl);
+      const fullUrl = match.queryString
+        ? `${pageUrl}?${match.queryString}`
+        : pageUrl;
+      this.model.pushPageToHistory(match.route.name, fullUrl);
     }
     this.model.pageHistoryHandled = false;
 
