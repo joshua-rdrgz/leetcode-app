@@ -19,13 +19,12 @@ export class TestNavController extends NavController {
 
   // ** NEEDS TO MIRROR ACTUAL IMPLEMENTATION **
   initialize(): this {
-    const handleBeforeHook = this.getHandleBeforeHook();
+    const handleAfterHook = this.getHandleAfterHook();
 
     this.router
       .hooks({
-        before(done, match) {
-          handleBeforeHook(match);
-          done();
+        after(match) {
+          handleAfterHook(match);
         },
       })
       .on({
@@ -46,8 +45,11 @@ export class TestNavController extends NavController {
         // ** NOT FOUND PAGE **
         '/page-not-found': {
           as: 'Not Found',
-          uses() {
-            console.log('not found page');
+          uses: (match: Match) => {
+            this.navigateToUrl(
+              `/page-not-found?attemptedUrl=${encodeURIComponent(match.url)}`,
+              true
+            );
           },
         },
       })
@@ -84,8 +86,8 @@ export class TestNavController extends NavController {
     this.model.clearNavHistory();
   }
 
-  getHandleBeforeHook() {
-    return this.handleBeforeHook.bind(this);
+  getHandleAfterHook() {
+    return this.handleAfterHook.bind(this);
   }
 
   getCanRenderHomeBtn() {

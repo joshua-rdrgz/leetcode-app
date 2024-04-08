@@ -53,14 +53,14 @@ describe('NavController', () => {
     });
   });
 
-  describe('handleBeforeHook()', () => {
-    it('should handle the before hook and update the model and view', () => {
+  describe('handleAfterHook()', () => {
+    it('should handle the after hook and update the model and view', () => {
       const match = {
         url: 'problem/123', // Navigo Match comes without leading '/'
         route: { name: 'Solve Page' },
       } as Match;
       const renderSpy = jest.spyOn(navController.getView(), 'render');
-      navController.getHandleBeforeHook()(match);
+      navController.getHandleAfterHook()(match);
 
       expect(navController.getModel().getCurrentPage()).toEqual({
         pageTitle: 'Solve Page',
