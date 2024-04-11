@@ -1,0 +1,118 @@
+version: '3.9'
+
+services:
+  db-dev:
+    container_name: db-dev
+    image: mysql:8.0
+    env_file:
+      - .env
+    networks:
+      - leetcode-app
+    volumes:
+      - db-dev-data:/var/lib/mysql
+    profiles:
+      - dev
+
+  db-prod:
+    container_name: db-prod
+    image: mysql:8.0
+    env_file:
+      - .env
+    networks:
+      - leetcode-app
+    volumes:
+      - db-prod-data:/var/lib/mysql
+    profiles:
+      - prod
+
+  server-dev:
+    container_name: server-dev
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - db-dev
+    env_file:
+      - .env
+    environment:
+      DATASOURCE_URL: jdbc:mysql://db-dev:3306/${MYSQL_DATABASE}
+      DATASOURCE_USER: ${MYSQL_USER}
+      DATASOURCE_PASS: ${MYSQL_PASSWORD}
+    ports:
+      - 8080:8080
+      - 35729:35729
+      - 5005:5005
+    networks:
+      - leetcode-app
+    volumes:
+      - type: bind
+        source: ./server
+        target: /usr/src/app
+    profiles:
+      - dev
+
+  server-prod:
+    container_name: server-prod
+    build:
+      context: ./server
+      dockerfile: Dockerfile.prod
+    depends_on:
+      - db-prod
+    env_file:
+      - .env
+    environment:
+      DATASOURCE_URL: jdbc:mysql://db-prod:3306/${MYSQL_DATABASE}
+      DATASOURCE_USER: ${MYSQL_USER}
+      DATASOURCE_PASS: ${MYSQL_PASSWORD}
+    ports:
+      - 8080:8080
+    networks:
+      - leetcode-app
+    profiles:
+      - prod
+
+  client-dev:
+    container_name: client-dev
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    environment:
+      - VITE_API_BASE_URL=http://server-dev:8080/api
+    depends_on:
+      - server-dev
+    ports:
+      - '5173:5173'
+    networks:
+      - leetcode-app
+    volumes:
+      - type: bind
+        source: ./client
+        target: /usr/src/app
+      - type: volume
+        target: /usr/src/app/node_modules
+    profiles:
+      - dev
+
+  client-prod:
+    container_name: client-prod
+    build:
+      context: ./client
+      dockerfile: Dockerfile.prod
+    environment:
+      - VITE_API_BASE_URL=http://server-prod:8080/api
+    depends_on:
+      - server-prod
+    ports:
+      - '80:80'
+    networks:
+      - leetcode-app
+    profiles:
+      - prod
+
+networks:
+  leetcode-app:
+    name: leetcode-app
+
+volumes:
+  db-dev-data:
+  db-prod-data:
