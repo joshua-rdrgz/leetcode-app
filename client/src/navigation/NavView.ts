@@ -31,13 +31,13 @@ export class NavView {
     btnContainer.classList.add('navbar__btn-container');
 
     if (canRenderPrevBtn()) {
-      const prevBtn = this.generateBtn('Back', onPrevBtnClick);
+      const prevBtn = this.generateBtn('Back', onPrevBtnClick, 'back-button');
       prevBtn.classList.add('btn', 'navbar__btn');
       btnContainer.appendChild(prevBtn);
     }
 
     if (canRenderHomeBtn()) {
-      const homeBtn = this.generateBtn('Home', onHomeBtnClick);
+      const homeBtn = this.generateBtn('Home', onHomeBtnClick, 'home-button');
       homeBtn.classList.add('btn', 'navbar__btn');
       btnContainer.appendChild(homeBtn);
     }
@@ -47,10 +47,12 @@ export class NavView {
 
   private generateBtn(
     textContent: string,
-    onClickFn: (this: HTMLButtonElement, ev: MouseEvent) => any
+    onClickFn: (this: HTMLButtonElement, ev: MouseEvent) => any,
+    testId: string
   ) {
     const btn = document.createElement('button');
     btn.textContent = textContent;
+    btn.setAttribute('data-test', testId);
     btn.addEventListener('click', onClickFn);
 
     return btn;

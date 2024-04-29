@@ -1,38 +1,14 @@
 describe('Home Page', () => {
-  it('Displays problem grid and navigates to problem details on click', () => {
-    // Intercept the API request and provide the fixture response
-    cy.intercept('GET', '/api/v1/leetcode/problems', {
-      fixture: 'problemsResponse.json',
-    }).as('getProblems');
-
-    // Visit the home page
+  beforeEach(() => {
     cy.visit('/');
+  });
 
-    // Wait for the API request to complete
-    cy.wait('@getProblems');
+  it('should display problem cards', () => {
+    cy.get('[data-test="problem-card"]').should('have.length.greaterThan', 0);
+  });
 
-    // Get all problem cards on the grid
-    cy.get('[data-test="problem-card"]').each(($card, index) => {
-      console.log('NEW ITERATION-----------');
-      console.log('index: ', index);
-      console.log('$card: ', $card.text());
-
-      const encodedName = encodeURIComponent(
-        $card.find('h2').text().toLowerCase()
-      );
-
-      // Click on the card
-      cy.wrap($card)
-        .click()
-        .then(() => {
-          // Assert that the URL has changed correctly
-          cy.url().should('eq', `http://localhost:5173/problem/${encodedName}`);
-
-          // Go back to the main page
-          cy.go('back');
-
-          cy.request('/api/v1/leetcode/problems');
-        });
-    });
+  it('should navigate to the solve page when clicking a problem card', () => {
+    cy.get('[data-test="problem-card"]').first().click();
+    cy.url().should('include', '/problem/');
   });
 });

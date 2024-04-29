@@ -30,10 +30,15 @@ export class RomanArabicModel {
   }
 
   async onConvert(method: HTTPMethod, url: string, inputTag: HTMLInputElement) {
-    const { data } = await this.apiClient[method](
-      url.replace('{romanOrArabic}', inputTag.value)
-    );
-    return data;
+    try {
+      const response = await this.apiClient[method](
+        url.replace('{romanOrArabic}', inputTag.value)
+      );
+      return response?.data;
+    } catch (error) {
+      console.error('Conversion error:', error);
+      throw error;
+    }
   }
 
   async onFlushCache(method: HTTPMethod, url: string) {

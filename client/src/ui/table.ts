@@ -124,7 +124,7 @@ export class Table<T extends object> {
         for (const colDef of this.columnDefs) {
           const cell = row.insertCell();
           cell.classList.add('table__cell');
-          cell.textContent = rowData[colDef.key]?.toString() || '';
+          cell.textContent = rowData?.[colDef.key]?.toString() || '';
         }
       }
     }
