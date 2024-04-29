@@ -8,8 +8,4 @@ RUN mvn dependency:go-offline
 
 COPY src ./src
 
-COPY docker-dev-entry.sh ./
-
-RUN chmod +x docker-dev-entry.sh
-
-CMD ["./docker-dev-entry.sh"]
+CMD ["mvn", "spring-boot:run"]

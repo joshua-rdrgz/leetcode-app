@@ -12,6 +12,4 @@ COPY . .
 
 EXPOSE 5173
 
-RUN chmod +x wait-for-it.sh
-
-CMD ["./wait-for-it.sh", "server-dev:8080", "--", "npm", "run", "dev"]
+CMD ["npm", "run", "dev"]
